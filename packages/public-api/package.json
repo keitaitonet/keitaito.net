@@ -1,0 +1,21 @@
+{
+  "name": "public-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch --onSuccess \"node dist/main.cjs\""
+  },
+  "dependencies": {
+    "@fastify/swagger": "^9.7.0",
+    "@fastify/swagger-ui": "^5.2.5",
+    "@fastify/type-provider-typebox": "^6.1.0",
+    "fastify": "^5.8.4",
+    "typebox": "^1.1.23"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.2",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  }
+}
