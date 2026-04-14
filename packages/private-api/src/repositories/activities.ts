@@ -4,20 +4,20 @@ import { executeStatementWithRetry } from "../lib/rds-retry";
 
 type Rds = FastifyInstance["rds"];
 
-export type Model = {
+export interface Model {
   id: number;
   title: string;
   description: string;
   date: string;
   created_at: string;
   updated_at: string;
-};
+}
 
-export type Input = {
+export interface Input {
   title: string;
   description: string;
   date: string;
-};
+}
 
 const ACTIVITY_COLUMNS = "id, title, description, date, created_at, updated_at";
 
@@ -76,7 +76,7 @@ export function activitiesRepository(rds: Rds) {
           },
         ],
       );
-      return rows[0]!;
+      return rows[0] as Model;
     },
 
     async update(id: number, input: Input): Promise<Model | null> {
