@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch --onSuccess \"node dist/main.cjs\""
+    "dev": "tsup --watch --onSuccess \"node dist/main.cjs\"",
+    "test": "vitest run"
   },
   "dependencies": {
     "@fastify/swagger": "^9.7.0",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@types/node": "^24.12.2",
     "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.4"
   }
 }

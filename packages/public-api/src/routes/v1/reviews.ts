@@ -26,6 +26,10 @@ export const reviewsRoute: FastifyPluginAsyncTypebox = async (fastify) => {
             id: 1,
             content: "Content 1",
           },
+          {
+            id: 2,
+            content: "Content 2",
+          },
         ],
       };
     },
@@ -40,18 +44,14 @@ export const reviewsRoute: FastifyPluginAsyncTypebox = async (fastify) => {
           content: Type.String(),
         }),
         response: {
-          200: Type.Object({
-            review: Review,
-          }),
+          200: Review,
         },
       },
     },
     async (request) => {
       return {
-        review: {
-          id: 1,
-          content: request.body.content,
-        },
+        id: 1,
+        content: request.body.content,
       };
     },
   );
