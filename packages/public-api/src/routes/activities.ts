@@ -2,7 +2,7 @@ import {
   FastifyPluginAsyncTypebox,
   Type,
 } from "@fastify/type-provider-typebox";
-import * as repo from "../repositories/activities";
+import { activitiesRepository } from "../repositories/activities";
 
 const Model = Type.Object({
   id: Type.Integer(),
@@ -24,6 +24,8 @@ const NotFound = Type.Object({
 });
 
 export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
+  const repo = activitiesRepository(fastify.rds);
+
   fastify.get(
     "/",
     {

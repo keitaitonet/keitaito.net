@@ -1,6 +1,6 @@
 import { createServer } from "./create-server";
 
-const server = createServer({
+const server = await createServer({
   logger: true,
 });
 

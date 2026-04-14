@@ -1,12 +1,24 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { createServer } from "../../src/create-server";
-import * as repo from "../../src/repositories/activities";
+import { activitiesRepository } from "../../src/repositories/activities";
 
-vi.mock("../../src/repositories/activities");
+type Repo = ReturnType<typeof activitiesRepository>;
+
+const repo = vi.hoisted(() => ({
+  list: vi.fn<Repo["list"]>(),
+  get: vi.fn<Repo["get"]>(),
+  create: vi.fn<Repo["create"]>(),
+  update: vi.fn<Repo["update"]>(),
+  remove: vi.fn<Repo["remove"]>(),
+}));
+
+vi.mock("../../src/repositories/activities", () => ({
+  activitiesRepository: () => repo,
+}));
 
 describe("GET /v1/activities", () => {
   it("一覧を取得できる", async () => {
-    vi.mocked(repo.list).mockResolvedValue([
+    repo.list.mockResolvedValue([
       {
         id: 1,
         title: "title",
@@ -25,7 +37,7 @@ describe("GET /v1/activities", () => {
       },
     ]);
 
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "GET",
       url: "/v1/activities",
@@ -56,9 +68,9 @@ describe("GET /v1/activities", () => {
   });
 
   it("0件のとき空配列を返す", async () => {
-    vi.mocked(repo.list).mockResolvedValue([]);
+    repo.list.mockResolvedValue([]);
 
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "GET",
       url: "/v1/activities",
@@ -71,7 +83,7 @@ describe("GET /v1/activities", () => {
 
 describe("POST /v1/activities", () => {
   it("作成できる", async () => {
-    vi.mocked(repo.create).mockResolvedValue({
+    repo.create.mockResolvedValue({
       id: 1,
       title: "title",
       description: "description",
@@ -80,7 +92,7 @@ describe("POST /v1/activities", () => {
       updated_at: "2026-04-14T00:00:00Z",
     });
 
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "POST",
       url: "/v1/activities",
@@ -108,7 +120,7 @@ describe("POST /v1/activities", () => {
   });
 
   it("titleがないとき400を返す", async () => {
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "POST",
       url: "/v1/activities",
@@ -123,7 +135,7 @@ describe("POST /v1/activities", () => {
   });
 
   it("dateが誤った日付形式のとき400を返す", async () => {
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "POST",
       url: "/v1/activities",
@@ -141,7 +153,7 @@ describe("POST /v1/activities", () => {
 
 describe("GET /v1/activities/:id", () => {
   it("取得できる", async () => {
-    vi.mocked(repo.get).mockResolvedValue({
+    repo.get.mockResolvedValue({
       id: 1,
       title: "title",
       description: "description",
@@ -150,7 +162,7 @@ describe("GET /v1/activities/:id", () => {
       updated_at: "2026-04-14T00:00:00Z",
     });
 
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "GET",
       url: "/v1/activities/1",
@@ -168,9 +180,9 @@ describe("GET /v1/activities/:id", () => {
   });
 
   it("存在しないとき404を返す", async () => {
-    vi.mocked(repo.get).mockResolvedValue(null);
+    repo.get.mockResolvedValue(null);
 
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "GET",
       url: "/v1/activities/999",
@@ -183,7 +195,7 @@ describe("GET /v1/activities/:id", () => {
   });
 
   it("idが数値でないとき400を返す", async () => {
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "GET",
       url: "/v1/activities/abc",
@@ -194,7 +206,7 @@ describe("GET /v1/activities/:id", () => {
   });
 
   it("idが整数でないとき400を返す", async () => {
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "GET",
       url: "/v1/activities/1.5",
@@ -207,7 +219,7 @@ describe("GET /v1/activities/:id", () => {
 
 describe("PUT /v1/activities/:id", () => {
   it("更新できる", async () => {
-    vi.mocked(repo.update).mockResolvedValue({
+    repo.update.mockResolvedValue({
       id: 1,
       title: "updated title",
       description: "updated description",
@@ -216,7 +228,7 @@ describe("PUT /v1/activities/:id", () => {
       updated_at: "2026-04-15T00:00:00Z",
     });
 
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "PUT",
       url: "/v1/activities/1",
@@ -244,9 +256,9 @@ describe("PUT /v1/activities/:id", () => {
   });
 
   it("存在しないとき404を返す", async () => {
-    vi.mocked(repo.update).mockResolvedValue(null);
+    repo.update.mockResolvedValue(null);
 
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "PUT",
       url: "/v1/activities/999",
@@ -269,7 +281,7 @@ describe("PUT /v1/activities/:id", () => {
   });
 
   it("idが数値でないとき400を返す", async () => {
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "PUT",
       url: "/v1/activities/abc",
@@ -285,7 +297,7 @@ describe("PUT /v1/activities/:id", () => {
   });
 
   it("titleがないとき400を返す", async () => {
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "PUT",
       url: "/v1/activities/1",
@@ -302,9 +314,9 @@ describe("PUT /v1/activities/:id", () => {
 
 describe("DELETE /v1/activities/:id", () => {
   it("削除できる", async () => {
-    vi.mocked(repo.remove).mockResolvedValue();
+    repo.remove.mockResolvedValue(undefined);
 
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "DELETE",
       url: "/v1/activities/1",
@@ -315,9 +327,9 @@ describe("DELETE /v1/activities/:id", () => {
   });
 
   it("存在しないときも204を返す", async () => {
-    vi.mocked(repo.remove).mockResolvedValue();
+    repo.remove.mockResolvedValue(undefined);
 
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "DELETE",
       url: "/v1/activities/999",
@@ -328,7 +340,7 @@ describe("DELETE /v1/activities/:id", () => {
   });
 
   it("idが数値でないとき400を返す", async () => {
-    const server = createServer();
+    const server = await createServer();
     const response = await server.inject({
       method: "DELETE",
       url: "/v1/activities/abc",
