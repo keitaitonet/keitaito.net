@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "check-types": "tsc --noEmit",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate"
   },

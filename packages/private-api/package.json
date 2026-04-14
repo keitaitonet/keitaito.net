@@ -4,7 +4,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch --onSuccess \"node --env-file=.env dist/main.js\"",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@aws-sdk/client-rds-data": "^3.1030.0",
