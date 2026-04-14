@@ -1,10 +1,11 @@
 import { RDSDataClient } from "@aws-sdk/client-rds-data";
+import fastifyEnv from "@fastify/env";
+import fastifySensible from "@fastify/sensible";
 import { fastifySwagger } from "@fastify/swagger";
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 import { fastify as Fastify, FastifyServerOptions } from "fastify";
 import { activitiesRoute } from "./routes/activities";
-import fastifyEnv from "@fastify/env";
 
 const envSchema = {
   type: "object",
@@ -35,6 +36,7 @@ export async function createServer(options: FastifyServerOptions = {}) {
   const fastify = Fastify(options).withTypeProvider<TypeBoxTypeProvider>();
 
   await fastify.register(fastifyEnv, { schema: envSchema });
+  await fastify.register(fastifySensible);
 
   fastify.decorate("rds", {
     client: new RDSDataClient({ region: fastify.config.AWS_REGION }),

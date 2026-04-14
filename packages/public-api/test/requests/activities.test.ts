@@ -190,7 +190,9 @@ describe("GET /v1/activities/:id", () => {
 
     expect(response.statusCode).toBe(404);
     expect(JSON.parse(response.body)).toEqual({
-      message: "Not found",
+      statusCode: 404,
+      error: "Not Found",
+      message: "Not Found",
     });
   });
 
@@ -271,7 +273,9 @@ describe("PUT /v1/activities/:id", () => {
 
     expect(response.statusCode).toBe(404);
     expect(JSON.parse(response.body)).toEqual({
-      message: "Not found",
+      statusCode: 404,
+      error: "Not Found",
+      message: "Not Found",
     });
     expect(repo.update).toHaveBeenCalledExactlyOnceWith(999, {
       title: "updated title",

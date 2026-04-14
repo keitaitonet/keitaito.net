@@ -1,8 +1,6 @@
-import {
-  ExecuteStatementCommand,
-  SqlParameter,
-} from "@aws-sdk/client-rds-data";
+import { SqlParameter } from "@aws-sdk/client-rds-data";
 import { FastifyInstance } from "fastify";
+import { executeStatementWithRetry } from "../lib/rds-retry";
 
 type Rds = FastifyInstance["rds"];
 
@@ -28,14 +26,13 @@ export function activitiesRepository(rds: Rds) {
     sql: string,
     parameters?: SqlParameter[],
   ): Promise<T[]> {
-    const command = new ExecuteStatementCommand({
+    const { formattedRecords } = await executeStatementWithRetry(rds.client, {
       resourceArn: rds.resourceArn,
       secretArn: rds.secretArn,
       sql,
       parameters,
       formatRecordsAs: "JSON",
     });
-    const { formattedRecords } = await rds.client.send(command);
     return JSON.parse(formattedRecords as string) as T[];
   }
 
@@ -43,13 +40,12 @@ export function activitiesRepository(rds: Rds) {
     sql: string,
     parameters?: SqlParameter[],
   ): Promise<void> {
-    const command = new ExecuteStatementCommand({
+    await executeStatementWithRetry(rds.client, {
       resourceArn: rds.resourceArn,
       secretArn: rds.secretArn,
       sql,
       parameters,
     });
-    await rds.client.send(command);
   }
 
   return {

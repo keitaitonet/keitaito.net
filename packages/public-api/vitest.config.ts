@@ -11,7 +11,14 @@ export default defineConfig({
       {
         test: {
           name: "Requests",
+          include: ["test/requests/**"],
           mockReset: true,
+        },
+      },
+      {
+        test: {
+          name: "Unit",
+          include: ["test/**", "!test/requests/**"],
         },
       },
     ],

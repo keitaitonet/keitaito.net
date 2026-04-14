@@ -19,7 +19,9 @@ const Input = Type.Object({
   date: Type.String({ format: "date" }),
 });
 
-const NotFound = Type.Object({
+const ErrorResponse = Type.Object({
+  statusCode: Type.Integer(),
+  error: Type.String(),
   message: Type.String(),
 });
 
@@ -35,6 +37,7 @@ export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
           200: Type.Object({
             list: Type.Array(Model),
           }),
+          503: ErrorResponse,
         },
       },
     },
@@ -52,6 +55,7 @@ export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
         body: Input,
         response: {
           201: Model,
+          503: ErrorResponse,
         },
       },
     },
@@ -71,15 +75,15 @@ export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
         }),
         response: {
           200: Model,
-          404: NotFound,
+          404: ErrorResponse,
+          503: ErrorResponse,
         },
       },
     },
-    async (request, reply) => {
+    async (request) => {
       const activity = await repo.get(request.params.id);
       if (!activity) {
-        reply.status(404);
-        return { message: "Not found" };
+        throw fastify.httpErrors.notFound();
       }
       return activity;
     },
@@ -96,15 +100,15 @@ export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
         body: Input,
         response: {
           200: Model,
-          404: NotFound,
+          404: ErrorResponse,
+          503: ErrorResponse,
         },
       },
     },
-    async (request, reply) => {
+    async (request) => {
       const activity = await repo.update(request.params.id, request.body);
       if (!activity) {
-        reply.status(404);
-        return { message: "Not found" };
+        throw fastify.httpErrors.notFound();
       }
       return activity;
     },
@@ -120,6 +124,7 @@ export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
         }),
         response: {
           204: Type.Null(),
+          503: ErrorResponse,
         },
       },
     },
