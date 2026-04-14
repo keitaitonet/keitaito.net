@@ -16,11 +16,9 @@ export default defineConfig({
       name: "copy-swagger-ui-static",
       setup(build) {
         build.onEnd(async () => {
-          await cp(
-            "node_modules/@fastify/swagger-ui/static",
-            "dist/static",
-            { recursive: true },
-          );
+          await cp("node_modules/@fastify/swagger-ui/static", "dist/static", {
+            recursive: true,
+          });
         });
       },
     },

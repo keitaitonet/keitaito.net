@@ -44,7 +44,9 @@ function isResumingError(error: unknown): boolean {
 }
 
 function toServiceUnavailable(cause: unknown): Error {
-  const error = new Error("Database is waking up. Please retry shortly.") as Error & {
+  const error = new Error(
+    "Database is waking up. Please retry shortly.",
+  ) as Error & {
     statusCode?: number;
   };
   error.statusCode = 503;
