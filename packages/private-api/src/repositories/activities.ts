@@ -1,5 +1,5 @@
-import { SqlParameter } from "@aws-sdk/client-rds-data";
-import { FastifyInstance } from "fastify";
+import type { SqlParameter } from "@aws-sdk/client-rds-data";
+import type { FastifyInstance } from "fastify";
 import { executeStatementWithRetry } from "../lib/rds-retry";
 
 type Rds = FastifyInstance["rds"];
@@ -76,7 +76,7 @@ export function activitiesRepository(rds: Rds) {
           },
         ],
       );
-      return rows[0];
+      return rows[0]!;
     },
 
     async update(id: number, input: Input): Promise<Model | null> {

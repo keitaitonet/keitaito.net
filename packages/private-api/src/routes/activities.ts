@@ -1,5 +1,5 @@
 import {
-  FastifyPluginAsyncTypebox,
+  type FastifyPluginAsyncTypebox,
   Type,
 } from "@fastify/type-provider-typebox";
 import { activitiesRepository } from "../repositories/activities";

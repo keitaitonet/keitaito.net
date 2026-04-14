@@ -1,7 +1,6 @@
 {
   "name": "public-api",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch --onSuccess \"node --env-file=.env dist/main.js\"",
@@ -15,7 +14,8 @@
     "@fastify/swagger-ui": "^5.2.5",
     "@fastify/type-provider-typebox": "^6.1.0",
     "fastify": "^5.8.4",
-    "typebox": "^1.1.23"
+    "typebox": "^1.1.23",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.12.2",

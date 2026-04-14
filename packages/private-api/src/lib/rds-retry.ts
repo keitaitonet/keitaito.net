@@ -1,8 +1,8 @@
 import {
   ExecuteStatementCommand,
-  ExecuteStatementCommandInput,
-  ExecuteStatementCommandOutput,
-  RDSDataClient,
+  type ExecuteStatementCommandInput,
+  type ExecuteStatementCommandOutput,
+  type RDSDataClient,
 } from "@aws-sdk/client-rds-data";
 
 const RETRY_DELAYS_MS = [1000, 2000, 4000, 8000];
@@ -13,20 +13,23 @@ export async function executeStatementWithRetry(
   client: RdsClient,
   input: ExecuteStatementCommandInput,
 ): Promise<ExecuteStatementCommandOutput> {
-  for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
+  let lastError: unknown;
+  for (let attempt = 0; ; attempt++) {
     try {
       return await client.send(new ExecuteStatementCommand(input));
     } catch (error) {
       if (!isResumingError(error)) {
         throw error;
       }
-      if (attempt === RETRY_DELAYS_MS.length) {
-        throw toServiceUnavailable(error);
+      lastError = error;
+      const delay = RETRY_DELAYS_MS[attempt];
+      if (delay === undefined) {
+        break;
       }
-      await sleep(RETRY_DELAYS_MS[attempt] + jitter());
+      await sleep(delay + jitter());
     }
   }
-  throw new Error("unreachable");
+  throw toServiceUnavailable(lastError);
 }
 
 function isResumingError(error: unknown): boolean {

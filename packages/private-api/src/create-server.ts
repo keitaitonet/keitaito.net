@@ -1,10 +1,11 @@
+import path from "node:path";
 import { RDSDataClient } from "@aws-sdk/client-rds-data";
 import fastifyEnv from "@fastify/env";
 import fastifySensible from "@fastify/sensible";
 import { fastifySwagger } from "@fastify/swagger";
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
-import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
-import { fastify as Fastify, FastifyServerOptions } from "fastify";
+import type { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
+import { fastify as Fastify, type FastifyServerOptions } from "fastify";
 import { activitiesRoute } from "./routes/activities";
 
 const envSchema = {
@@ -54,6 +55,10 @@ export async function createServer(options: FastifyServerOptions = {}) {
   });
   fastify.register(fastifySwaggerUi, {
     routePrefix: "/docs",
+    baseDir: path.join(__dirname, "static"),
+    uiConfig: {
+      displayOperationId: true,
+    },
   });
 
   fastify.register(activitiesRoute, { prefix: "/v1/activities" });

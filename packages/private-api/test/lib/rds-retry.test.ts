@@ -37,8 +37,9 @@ describe("executeStatementWithRetry", () => {
     const result = await executeStatementWithRetry(client, input);
 
     expect(result).toEqual({ formattedRecords: "[]" });
-    expect(send).toHaveBeenCalledOnce();
-    expect(send.mock.calls[0][0]).toBeInstanceOf(ExecuteStatementCommand);
+    expect(send).toHaveBeenCalledExactlyOnceWith(
+      expect.any(ExecuteStatementCommand),
+    );
   });
 
   it("DatabaseResumingException を name で検知してリトライする", async () => {
