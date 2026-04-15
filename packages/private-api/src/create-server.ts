@@ -19,21 +19,6 @@ const envSchema = {
   },
 } as const;
 
-declare module "fastify" {
-  interface FastifyInstance {
-    config: {
-      AWS_REGION: string;
-      RDS_RESOURCE_ARN: string;
-      RDS_SECRET_ARN: string;
-    };
-    rds: {
-      client: RDSDataClient;
-      resourceArn: string;
-      secretArn: string;
-    };
-  }
-}
-
 export async function createServer(options: FastifyServerOptions = {}) {
   const fastify = Fastify(options).withTypeProvider<TypeBoxTypeProvider>();
 
@@ -47,7 +32,7 @@ export async function createServer(options: FastifyServerOptions = {}) {
     secretArn: fastify.config.RDS_SECRET_ARN,
   });
 
-  fastify.register(fastifySwagger, {
+  await fastify.register(fastifySwagger, {
     openapi: {
       info: {
         title: "keitaito.net Blog",
@@ -55,7 +40,7 @@ export async function createServer(options: FastifyServerOptions = {}) {
       },
     },
   });
-  fastify.register(fastifySwaggerUi, {
+  await fastify.register(fastifySwaggerUi, {
     routePrefix: "/docs",
     baseDir: path.join(__dirname, "static"),
     uiConfig: {
@@ -63,6 +48,6 @@ export async function createServer(options: FastifyServerOptions = {}) {
     },
   });
 
-  fastify.register(activitiesRoute, { prefix: "/v1/activities" });
+  await fastify.register(activitiesRoute, { prefix: "/v1/activities" });
   return fastify;
 }
