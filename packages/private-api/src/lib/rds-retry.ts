@@ -9,6 +9,13 @@ const RETRY_DELAYS_MS = [1000, 2000, 4000, 8000];
 
 type RdsClient = Pick<RDSDataClient, "send">;
 
+export class RdsResumingError extends Error {
+  override readonly name = "RdsResumingError";
+  constructor(cause: unknown) {
+    super("RDS cluster is resuming from auto-pause", { cause });
+  }
+}
+
 export async function executeStatementWithRetry(
   client: RdsClient,
   input: ExecuteStatementCommandInput,
@@ -29,7 +36,7 @@ export async function executeStatementWithRetry(
       await sleep(delay + jitter());
     }
   }
-  throw toServiceUnavailable(lastError);
+  throw new RdsResumingError(lastError);
 }
 
 function isResumingError(error: unknown): boolean {
@@ -41,17 +48,6 @@ function isResumingError(error: unknown): boolean {
     message.includes("is resuming after being auto-paused") ||
     message.includes("Wait a few seconds and try again")
   );
-}
-
-function toServiceUnavailable(cause: unknown): Error {
-  const error = new Error(
-    "Database is waking up. Please retry shortly.",
-  ) as Error & {
-    statusCode?: number;
-  };
-  error.statusCode = 503;
-  error.cause = cause;
-  return error;
 }
 
 function sleep(ms: number): Promise<void> {

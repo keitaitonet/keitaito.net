@@ -1,6 +1,9 @@
 import { ExecuteStatementCommand } from "@aws-sdk/client-rds-data";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { executeStatementWithRetry } from "../../src/lib/rds-retry";
+import {
+  executeStatementWithRetry,
+  RdsResumingError,
+} from "../../src/lib/rds-retry";
 
 function createClient() {
   const send = vi.fn();
@@ -85,16 +88,16 @@ describe("executeStatementWithRetry", () => {
     expect(send).toHaveBeenCalledOnce();
   });
 
-  it("リトライ上限に達したら 503 エラーで throw する", async () => {
+  it("リトライ上限に達したら RdsResumingError を throw する", async () => {
     const { client, send } = createClient();
-    send.mockRejectedValue(resumingError());
+    const cause = resumingError();
+    send.mockRejectedValue(cause);
 
     const assertion = expect(
       executeStatementWithRetry(client, input),
-    ).rejects.toMatchObject({
-      statusCode: 503,
-      message: "Database is waking up. Please retry shortly.",
-    });
+    ).rejects.toSatisfy(
+      (err) => err instanceof RdsResumingError && err.cause === cause,
+    );
     await vi.runAllTimersAsync();
     await assertion;
     expect(send).toHaveBeenCalledTimes(5);

@@ -6,6 +6,7 @@ import { fastifySwagger } from "@fastify/swagger";
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import type { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 import { fastify as Fastify, type FastifyServerOptions } from "fastify";
+import errorHandler from "./plugins/error-handler";
 import { activitiesRoute } from "./routes/activities";
 
 const envSchema = {
@@ -38,6 +39,7 @@ export async function createServer(options: FastifyServerOptions = {}) {
 
   await fastify.register(fastifyEnv, { schema: envSchema });
   await fastify.register(fastifySensible);
+  await fastify.register(errorHandler);
 
   fastify.decorate("rds", {
     client: new RDSDataClient({ region: fastify.config.AWS_REGION }),
