@@ -4,7 +4,7 @@ import { executeStatementWithRetry } from "../lib/rds-retry";
 
 type Rds = FastifyInstance["rds"];
 
-export interface Model {
+export interface Activity {
   id: number;
   title: string;
   description: string;
@@ -13,7 +13,7 @@ export interface Model {
   updated_at: string;
 }
 
-export interface Input {
+export interface ActivityInput {
   title: string;
   description: string;
   date: string;
@@ -49,20 +49,20 @@ export function activitiesRepository(rds: Rds) {
   }
 
   return {
-    async list(): Promise<Model[]> {
-      return query<Model>(`SELECT ${ACTIVITY_COLUMNS} FROM activities`);
+    async list(): Promise<Activity[]> {
+      return query<Activity>(`SELECT ${ACTIVITY_COLUMNS} FROM activities`);
     },
 
-    async get(id: number): Promise<Model | null> {
-      const rows = await query<Model>(
+    async get(id: number): Promise<Activity | null> {
+      const rows = await query<Activity>(
         `SELECT ${ACTIVITY_COLUMNS} FROM activities WHERE id = :id`,
         [{ name: "id", value: { longValue: id } }],
       );
       return rows[0] ?? null;
     },
 
-    async create(input: Input): Promise<Model> {
-      const rows = await query<Model>(
+    async create(input: ActivityInput): Promise<Activity> {
+      const rows = await query<Activity>(
         `INSERT INTO activities (title, description, date)
          VALUES (:title, :description, :date)
          RETURNING ${ACTIVITY_COLUMNS}`,
@@ -76,11 +76,11 @@ export function activitiesRepository(rds: Rds) {
           },
         ],
       );
-      return rows[0] as Model;
+      return rows[0] as Activity;
     },
 
-    async update(id: number, input: Input): Promise<Model | null> {
-      const rows = await query<Model>(
+    async update(id: number, input: ActivityInput): Promise<Activity | null> {
+      const rows = await query<Activity>(
         `UPDATE activities
          SET title = :title, description = :description, date = :date
          WHERE id = :id

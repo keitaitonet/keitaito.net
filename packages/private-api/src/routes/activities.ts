@@ -4,7 +4,7 @@ import {
 } from "@fastify/type-provider-typebox";
 import { activitiesRepository } from "../repositories/activities";
 
-const Model = Type.Object({
+const Activity = Type.Object({
   id: Type.Integer(),
   title: Type.String(),
   description: Type.String(),
@@ -13,7 +13,7 @@ const Model = Type.Object({
   updated_at: Type.String(),
 });
 
-const Input = Type.Object({
+const ActivityInput = Type.Object({
   title: Type.String(),
   description: Type.String(),
   date: Type.String({ format: "date" }),
@@ -35,7 +35,7 @@ export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
         tags: ["Activities"],
         response: {
           200: Type.Object({
-            list: Type.Array(Model),
+            list: Type.Array(Activity),
           }),
           503: ErrorResponse,
         },
@@ -52,9 +52,9 @@ export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
     {
       schema: {
         tags: ["Activities"],
-        body: Input,
+        body: ActivityInput,
         response: {
-          201: Model,
+          201: Activity,
           503: ErrorResponse,
         },
       },
@@ -74,7 +74,7 @@ export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
           id: Type.Integer(),
         }),
         response: {
-          200: Model,
+          200: Activity,
           404: ErrorResponse,
           503: ErrorResponse,
         },
@@ -97,9 +97,9 @@ export const activitiesRoute: FastifyPluginAsyncTypebox = async (fastify) => {
         params: Type.Object({
           id: Type.Integer(),
         }),
-        body: Input,
+        body: ActivityInput,
         response: {
-          200: Model,
+          200: Activity,
           404: ErrorResponse,
           503: ErrorResponse,
         },
