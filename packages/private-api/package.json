@@ -1,5 +1,5 @@
 {
-  "name": "public-api",
+  "name": "private-api",
   "private": true,
   "scripts": {
     "build": "tsup",
