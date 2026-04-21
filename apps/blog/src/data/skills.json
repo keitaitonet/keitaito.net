@@ -1,0 +1,132 @@
+[
+  {
+    "id": "1",
+    "name": "Amazon Web Services",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
+  },
+  {
+    "id": "2",
+    "name": "Cloudflare",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg"
+  },
+  {
+    "id": "3",
+    "name": "Docker",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+  },
+  {
+    "id": "4",
+    "name": "Firebase",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg"
+  },
+  {
+    "id": "5",
+    "name": "Supabase",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg"
+  },
+  {
+    "id": "6",
+    "name": "MySQL",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+  },
+  {
+    "id": "7",
+    "name": "PostgreSQL",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+  },
+  {
+    "id": "8",
+    "name": "Next.js",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
+  },
+  {
+    "id": "9",
+    "name": "Storybook",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/storybook/storybook-original.svg"
+  },
+  {
+    "id": "10",
+    "name": "Terraform",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg"
+  },
+  {
+    "id": "11",
+    "name": "React",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+  },
+  {
+    "id": "12",
+    "name": "Vue.js",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg"
+  },
+  {
+    "id": "13",
+    "name": "NestJS",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg"
+  },
+  {
+    "id": "14",
+    "name": "jQuery",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jquery/jquery-original.svg"
+  },
+  {
+    "id": "15",
+    "name": "Apache",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apache/apache-original.svg"
+  },
+  {
+    "id": "16",
+    "name": "Electron",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/electron/electron-original.svg"
+  },
+  {
+    "id": "17",
+    "name": "GitHub Actions",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg"
+  },
+  {
+    "id": "18",
+    "name": "Unity",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg"
+  },
+  {
+    "id": "19",
+    "name": "TypeScript",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+  },
+  {
+    "id": "20",
+    "name": "Node.js",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
+  },
+  {
+    "id": "21",
+    "name": "Python",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+  },
+  {
+    "id": "22",
+    "name": "Java",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+  },
+  {
+    "id": "23",
+    "name": "HTML",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+  },
+  {
+    "id": "24",
+    "name": "Ruby",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg"
+  },
+  {
+    "id": "25",
+    "name": "C",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"
+  },
+  {
+    "id": "26",
+    "name": "C#",
+    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg"
+  }
+]
