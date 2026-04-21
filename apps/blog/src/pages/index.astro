@@ -1,7 +1,13 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+
+const activities = await getCollection("activities");
 ---
 
 <Layout>
   <h1 class="text-red-500">Astro</h1>
+  <pre>
+    {JSON.stringify(activities, null, 2)}
+  </pre>
 </Layout>
