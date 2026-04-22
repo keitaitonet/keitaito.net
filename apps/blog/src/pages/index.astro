@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+const activities = await getCollection("activities");
+const articles = await getCollection("articles");
+const skills = await getCollection("skills");
+const works = await getCollection("works");
+---
+
+<Layout>
+  <div class="space-y-4">
+    <details>
+      <summary>Activities</summary>
+      <pre
+        class="overflow-auto bg-white p-2 text-sm">{JSON.stringify(activities, null, 2)}</pre>
+    </details>
+    <details>
+      <summary>Articles</summary>
+      <pre
+        class="overflow-auto bg-white p-2 text-sm">{JSON.stringify(articles, null, 2)}</pre>
+    </details>
+    <details>
+      <summary>Skills</summary>
+      <pre
+        class="overflow-auto bg-white p-2 text-sm">{JSON.stringify(skills, null, 2)}</pre>
+    </details>
+    <details>
+      <summary>Works</summary>
+      <pre
+        class="overflow-auto bg-white p-2 text-sm">{JSON.stringify(works, null, 2)}</pre>
+    </details>
+    <ul class="flex flex-wrap gap-4 bg-white p-2 text-sm">
+      {
+        works.map((work) => (
+          <li>
+            <a href={`/works/${work.id}`}>
+              {work.data.thumbnail && (
+                <Image
+                  src={work.data.thumbnail}
+                  alt=""
+                  class="aspect-video w-64 object-cover"
+                />
+              )}
+              {work.data.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>

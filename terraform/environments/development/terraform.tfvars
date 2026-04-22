@@ -1,0 +1,4 @@
+project     = "blog"
+environment = "development"
+region      = "ap-northeast-1"
+github_repo = "ke1ta1to/keitaito.net"
