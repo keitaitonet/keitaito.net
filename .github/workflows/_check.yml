@@ -5,6 +5,7 @@ on:
 
 jobs:
   format:
+    name: Format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -21,6 +22,7 @@ jobs:
       - run: pnpm format:check
 
   blog:
+    name: Blog
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -39,6 +41,7 @@ jobs:
       - run: pnpm --filter blog build
 
   terraform-fmt:
+    name: Terraform Format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -49,6 +52,7 @@ jobs:
         working-directory: terraform
 
   terraform-validate:
+    name: Terraform Validate
     runs-on: ubuntu-latest
     strategy:
       matrix:

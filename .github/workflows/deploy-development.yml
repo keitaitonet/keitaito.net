@@ -14,9 +14,11 @@ permissions:
 
 jobs:
   check:
+    name: Check
     uses: ./.github/workflows/_check.yml
 
   deploy:
+    name: Deploy
     needs: check
     runs-on: ubuntu-latest
     environment: development

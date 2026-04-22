@@ -10,4 +10,5 @@ concurrency:
 
 jobs:
   check:
+    name: Check
     uses: ./.github/workflows/_check.yml
