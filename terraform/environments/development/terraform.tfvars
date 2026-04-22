@@ -1,0 +1,3 @@
+project     = "blog"
+environment = "development"
+region      = "ap-northeast-1"
