@@ -1,5 +1,5 @@
 import { defineCollection } from "astro:content";
-import { file } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 const activities = defineCollection({
@@ -30,4 +30,15 @@ const skills = defineCollection({
   }),
 });
 
-export const collections = { activities, articles, skills };
+const works = defineCollection({
+  loader: glob({ base: "./src/data/works", pattern: "**/*.md" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      keywords: z.array(z.string()),
+      thumbnail: z.optional(image()),
+    }),
+});
+
+export const collections = { activities, articles, skills, works };

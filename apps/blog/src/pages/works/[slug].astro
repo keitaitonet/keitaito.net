@@ -1,0 +1,26 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+export const getStaticPaths = (async () => {
+  const works = await getCollection("works");
+  return works.map((work) => ({
+    params: { slug: work.id },
+    props: work,
+  }));
+}) satisfies GetStaticPaths;
+
+const work = Astro.props;
+const { Content } = await render(work);
+const { title, thumbnail } = work.data;
+---
+
+<Layout>
+  <div class="prose mx-auto max-w-4xl">
+    <h1 class="text-center font-bold">{title}</h1>
+    {thumbnail && <Image src={thumbnail} alt="" />}
+    <Content />
+  </div>
+</Layout>

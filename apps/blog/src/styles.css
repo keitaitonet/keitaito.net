@@ -1,5 +1,17 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-@theme {
+@theme inline {
+  --font-sans: var(--font-noto-sans-jp);
+  --font-mono: var(--font-noto-sans-mono);
+
   --color-primary: oklch(70.4% 0.14 182.503);
+  --color-foreground: oklch(37.1% 0 0);
+  --color-muted: oklch(55.6% 0 0);
+}
+
+@layer base {
+  body {
+    @apply text-foreground bg-olive-50 wrap-anywhere;
+  }
 }
