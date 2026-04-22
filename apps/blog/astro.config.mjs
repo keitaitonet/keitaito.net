@@ -5,6 +5,9 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://keitaito.net",
+  image: {
+    layout: "constrained",
+  },
   vite: {
     plugins: [tailwindcss()],
   },
