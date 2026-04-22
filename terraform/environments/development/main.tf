@@ -7,6 +7,7 @@ data "aws_caller_identity" "this" {}
 module "static_site" {
   source = "../../modules/static-site"
 
-  name        = "${local.name_prefix}-site"
-  bucket_name = "${local.name_prefix}-site-${data.aws_caller_identity.this.account_id}"
+  name          = "${local.name_prefix}-site"
+  bucket_name   = "${local.name_prefix}-site-${data.aws_caller_identity.this.account_id}"
+  force_destroy = true
 }
