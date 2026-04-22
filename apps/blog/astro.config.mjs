@@ -6,6 +6,9 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://keitaito.net",
   trailingSlash: "always",
+  prefetch: {
+    prefetchAll: true,
+  },
   image: {
     layout: "constrained",
   },
