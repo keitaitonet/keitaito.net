@@ -1,7 +1,7 @@
 ---
 title: モバイルオーダーシステム MO
 description: 調布祭で導入したモバイルオーダーシステムです。模擬店の注文管理や待機列の課題を解決します。
-keywords: ["モバイルオーダー", "調布祭", "学園祭", "模擬店", "注文管理"]
+keywords: ["学園祭", "模擬店", "AWS", "NestJS", "Next.js"]
 thumbnail: ./thumbnail.jpg
 ---
 

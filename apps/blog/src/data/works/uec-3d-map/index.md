@@ -1,7 +1,7 @@
 ---
 title: UEC 3D Map
 description: 電気通信大学のキャンパスを3Dで表示するWebアプリケーションです。
-keywords: ["3D", "Webアプリケーション", "電気通信大学"]
+keywords: ["電気通信大学", "Three.js", "Blender", "Next.js"]
 thumbnail: ./thumbnail.png
 ---
 

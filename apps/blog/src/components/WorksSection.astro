@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  works: CollectionEntry<"works">[];
+}
+
+const { works } = Astro.props;
+---
+
+<section id="works" class="mx-auto max-w-5xl py-16">
+  <SectionHeading title="Works" />
+  <div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
+    {
+      works.map((work) => (
+        <a
+          href={`/works/${work.id}/`}
+          data-astro-prefetch="viewport"
+          class="group block"
+        >
+          <div class="relative aspect-video overflow-hidden">
+            <Image
+              src={work.data.thumbnail}
+              alt=""
+              transition:name={`work-thumb-${work.id}`}
+              class="h-full object-cover transition group-hover:opacity-90 group-focus-visible:opacity-90"
+            />
+            <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/60 to-transparent" />
+
+            <ul class="absolute bottom-0 left-0 flex flex-wrap gap-x-3 px-4 py-3 font-mono text-[11px] tracking-wide text-white/85">
+              {work.data.keywords.map((k) => (
+                <li>{k}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="mt-4 space-y-2">
+            <h3
+              transition:name={`work-title-${work.id}`}
+              class="decoration-primary text-lg font-medium tracking-tight underline decoration-1 underline-offset-4 group-hover:decoration-2 group-focus-visible:decoration-2"
+            >
+              {work.data.title}
+            </h3>
+            <p class="text-muted line-clamp-2 text-sm leading-relaxed">
+              {work.data.description}
+            </p>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>

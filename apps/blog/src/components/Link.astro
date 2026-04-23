@@ -1,0 +1,23 @@
+---
+import { cn } from "../lib/utils";
+
+interface Props {
+  href: string;
+  external?: boolean;
+  class?: string;
+}
+
+const { href, external = false, class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  class={cn(
+    "decoration-primary underline underline-offset-4 hover:decoration-2 focus-visible:decoration-2",
+    className,
+  )}
+>
+  <slot />
+</a>

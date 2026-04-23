@@ -17,11 +17,18 @@
 @layer base {
   html {
     color-scheme: light;
+    @apply scroll-pt-20;
   }
   * {
     @apply border-border;
   }
   body {
-    @apply text-foreground bg-background wrap-anywhere;
+    @apply text-foreground bg-background;
+  }
+  a:focus-visible {
+    @apply outline-primary outline-2 outline-offset-4;
+  }
+  ::selection {
+    @apply bg-primary/20;
   }
 }

@@ -1,26 +1,111 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getCollection, render } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
+import { getCollection, getEntry, render } from "astro:content";
 import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import IconArrowLeft from "../../assets/icons/arrow-left.svg";
+import IconArrowRight from "../../assets/icons/arrow-right.svg";
 
 export const getStaticPaths = (async () => {
-  const works = await getCollection("works");
-  return works.map((work) => ({
+  const works = (await getCollection("works")).sort((a, b) =>
+    a.data.title.localeCompare(b.data.title, "ja"),
+  );
+  const summarize = (i: number) => {
+    const w = works[i];
+    return w ? { id: w.id, title: w.data.title } : null;
+  };
+  return works.map((work, index) => ({
     params: { slug: work.id },
-    props: work,
+    props: {
+      index,
+      total: works.length,
+      prev: summarize(index - 1),
+      next: summarize(index + 1),
+    },
   }));
 }) satisfies GetStaticPaths;
 
-const work = Astro.props;
+const { slug } = Astro.params;
+const work = await getEntry("works", slug);
+if (!work) throw new Error(`Work not found: ${slug}`);
+
+const { index, total, prev, next } = Astro.props;
 const { Content } = await render(work);
-const { title, thumbnail } = work.data;
+const { title, description, keywords, thumbnail } = work.data;
+const pad2 = (n: number) => String(n).padStart(2, "0");
+
+const navLinks = [
+  { entry: prev, side: "prev" as const, label: "prev" },
+  { entry: next, side: "next" as const, label: "next" },
+];
 ---
 
 <Layout>
-  <div class="prose mx-auto max-w-4xl">
-    <h1 class="text-center font-bold">{title}</h1>
-    {thumbnail && <Image src={thumbnail} alt="" />}
-    <Content />
-  </div>
+  <article class="mx-auto max-w-3xl">
+    <p class="text-primary mt-4 mb-4 font-mono text-xs tracking-wide">
+      {pad2(index + 1)} / {pad2(total)}
+    </p>
+
+    <Image
+      src={thumbnail}
+      alt=""
+      transition:name={`work-thumb-${work.id}`}
+      class="aspect-video w-full object-cover"
+    />
+
+    <div class="mt-10 border-b pb-10">
+      <h1
+        transition:name={`work-title-${work.id}`}
+        class="text-4xl font-light tracking-tight md:text-6xl"
+      >
+        {title}
+      </h1>
+      <p class="text-muted mt-6 text-base leading-relaxed">
+        {description}
+      </p>
+      <ul
+        class="text-muted mt-8 flex flex-wrap gap-x-3 font-mono text-xs tracking-wide"
+      >
+        {keywords.map((k) => <li>{k}</li>)}
+      </ul>
+    </div>
+
+    <div
+      class="prose prose-neutral prose-headings:font-medium prose-headings:tracking-tight prose-h2:mt-16 prose-h2:border-b prose-h2:border-border prose-h2:pb-3 prose-h2:text-2xl prose-h3:mt-10 prose-h3:text-lg prose-h3:text-foreground prose-p:leading-relaxed prose-p:text-foreground prose-a:text-foreground prose-a:decoration-primary prose-a:decoration-1 prose-a:underline-offset-4 hover:prose-a:text-primary focus-visible:prose-a:text-primary prose-strong:text-foreground prose-strong:font-medium prose-code:font-mono prose-code:text-primary prose-code:text-[0.9em] prose-code:before:content-none prose-code:after:content-none prose-img:rounded-none prose-img:border prose-img:border-border prose-li:marker:text-primary prose-hr:border-border mt-16 max-w-none"
+    >
+      <Content />
+    </div>
+
+    <footer class="mt-24 border-t pt-10 pb-4">
+      <nav class="grid grid-cols-2 gap-4">
+        {
+          navLinks.map(({ entry, side, label }) => (
+            <div class={side === "prev" ? "text-left" : "text-right"}>
+              {entry && (
+                <a
+                  href={`/works/${entry.id}/`}
+                  data-astro-prefetch="viewport"
+                  class="group block"
+                >
+                  <p
+                    class:list={[
+                      "text-muted group-hover:text-primary group-focus-visible:text-primary flex items-center gap-1 font-mono text-xs tracking-wide transition",
+                      side === "next" && "justify-end",
+                    ]}
+                  >
+                    {side === "prev" && <IconArrowLeft class="size-3" />}
+                    <span>{label}</span>
+                    {side === "next" && <IconArrowRight class="size-3" />}
+                  </p>
+                  <p class="decoration-primary mt-1 text-sm font-medium underline decoration-1 underline-offset-4 group-hover:decoration-2 group-focus-visible:decoration-2">
+                    {entry.title}
+                  </p>
+                </a>
+              )}
+            </div>
+          ))
+        }
+      </nav>
+    </footer>
+  </article>
 </Layout>

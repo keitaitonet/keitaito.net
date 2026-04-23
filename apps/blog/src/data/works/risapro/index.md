@@ -1,14 +1,7 @@
 ---
 title: りさプロ
 description: 大学の講義「メディア情報学プログラミング演習」で作成したJava製のゲームです。ゲーム内言語によるプログラミングを行い、プレイヤー「りさじゅう」をゴールまで導くゲームです。
-keywords:
-  [
-    "りさプロ",
-    "ゲーム",
-    "Java",
-    "プログラミング",
-    "メディア情報学プログラミング演習",
-  ]
+keywords: ["ゲーム", "Java", "Swing", "AWS Lambda", "大学講義"]
 thumbnail: ./thumbnail.png
 ---
 
@@ -49,8 +42,6 @@ LambdaはJavaでHTTPサーバーを構築し、Lambda Web Adapter、Docker上で
 GitHub Actionsを使用して、ECRにDockerイメージをプッシュし、Lambda関数をデプロイしています。
 
 AWSはCDKを使用して構築しました。
-
-<Image src={infraImage} alt="インフラ" unoptimized />
 
 ![](./infra.png)
 
