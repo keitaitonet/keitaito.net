@@ -1,3 +1,14 @@
+/* =========================================================================
+ * Design System Rules (do not violate without discussion):
+ * - Horizontal rhythm: body is the single source of px-4. Sections MUST NOT
+ *   add their own left/right padding. Full-bleed rows use `-mx-4`.
+ * - Responsive: single breakpoint `md` (>=768px). Do NOT introduce sm/lg/xl.
+ *   Mobile is compact, md expands.
+ * - Containers: `max-w-5xl` for list/index sections, `max-w-3xl` for
+ *   long-form article pages. No other max-w-*xl tier.
+ * - Meta text default: `font-mono text-xs tracking-wide`. The only
+ *   intentional exception is Hero's "Keita Ito" (`text-sm tracking-[0.2em]`).
+ * ========================================================================= */
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -30,5 +41,8 @@
   }
   ::selection {
     @apply bg-primary/20;
+  }
+  time {
+    font-variant-numeric: tabular-nums;
   }
 }

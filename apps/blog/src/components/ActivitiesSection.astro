@@ -15,7 +15,7 @@ const { activities } = Astro.props;
   <ol>
     {
       activities.map((activity) => (
-        <li class="border-border/50 grid grid-cols-[5rem_1fr] gap-4 border-b py-4 md:grid-cols-[8rem_1fr] md:gap-8">
+        <li class="border-border/50 grid grid-cols-[5rem_1fr] gap-x-3 gap-y-1 border-b py-5 md:grid-cols-[8rem_1fr] md:gap-x-8">
           <time
             datetime={format(activity.data.date, "yyyy-MM-dd")}
             class="text-primary font-mono text-xs tracking-wide"
