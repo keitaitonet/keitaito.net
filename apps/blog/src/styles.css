@@ -5,13 +5,23 @@
   --font-sans: var(--font-noto-sans-jp);
   --font-mono: var(--font-noto-sans-mono);
 
-  --color-primary: oklch(70.4% 0.14 182.503);
-  --color-foreground: oklch(37.1% 0 0);
-  --color-muted: oklch(55.6% 0 0);
+  --color-background: oklch(99% 0.004 250);
+  --color-foreground: oklch(20% 0.012 250);
+  --color-muted: oklch(52% 0.012 250);
+  --color-border: oklch(92% 0.008 250);
+
+  --color-primary: oklch(55% 0.13 185);
+  --color-accent: oklch(62% 0.2 25);
 }
 
 @layer base {
+  html {
+    color-scheme: light;
+  }
+  * {
+    @apply border-border;
+  }
   body {
-    @apply text-foreground bg-olive-50 wrap-anywhere;
+    @apply text-foreground bg-background wrap-anywhere;
   }
 }

@@ -3,9 +3,10 @@ import HeaderLogo from "./HeaderLogo.astro";
 ---
 
 <header
-  class="fixed top-0 right-0 left-0 z-10 flex h-16 items-center bg-white p-4"
+  transition:persist
+  class="bg-background fixed top-0 right-0 left-0 z-10 flex h-16 items-center p-4"
 >
-  <a href="/" class="ml-4 block">
+  <a href="/" data-astro-reload class="ml-4 block">
     <HeaderLogo />
   </a>
 </header>
