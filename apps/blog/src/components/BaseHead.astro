@@ -1,5 +1,6 @@
 ---
 import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -17,6 +18,8 @@ const canonicalURL = isNotFound
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <Font cssVariable="--font-noto-sans-jp" preload />
 <Font cssVariable="--font-noto-sans-mono" preload />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<ClientRouter />
 
 {canonicalURL && <link rel="canonical" href={canonicalURL} />}
 
