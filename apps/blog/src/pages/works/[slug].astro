@@ -1,7 +1,8 @@
 ---
 import type { GetStaticPaths } from "astro";
 import { getCollection, getEntry, render } from "astro:content";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
+import type { CreativeWork, WithContext } from "schema-dts";
 import Layout from "../../layouts/Layout.astro";
 import IconArrowLeft from "../../assets/icons/arrow-left.svg";
 import IconArrowRight from "../../assets/icons/arrow-right.svg";
@@ -39,9 +40,33 @@ const navLinks = [
   { entry: prev, side: "prev" as const, label: "prev" },
   { entry: next, side: "next" as const, label: "next" },
 ];
+
+const optimizedThumbnail = await getImage({ src: thumbnail, width: 1200 });
+const thumbnailUrl = new URL(optimizedThumbnail.src, Astro.site).href;
+const pageUrl = new URL(`/works/${work.id}/`, Astro.site).href;
+const siteUrl = new URL("/", Astro.site).href;
+
+const workJsonLd: WithContext<CreativeWork> = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: title,
+  description,
+  image: thumbnailUrl,
+  keywords: keywords.join(", "),
+  url: pageUrl,
+  author: {
+    "@type": "Person",
+    name: "伊藤 啓太",
+    url: siteUrl,
+  },
+};
 ---
 
-<Layout title={`${title} | ${SITE_TITLE}`} description={description}>
+<Layout
+  title={`${title} | ${SITE_TITLE}`}
+  description={description}
+  jsonLd={workJsonLd}
+>
   <article class="mx-auto max-w-3xl">
     <p
       class="text-primary my-4 font-mono text-xs tracking-wide"

@@ -1,11 +1,14 @@
 ---
 import { getCollection } from "astro:content";
+import { getImage } from "astro:assets";
+import type { Person, WithContext } from "schema-dts";
 import Layout from "../layouts/Layout.astro";
 import HeroSection from "../components/HeroSection.astro";
 import WorksSection from "../components/WorksSection.astro";
 import ActivitiesSection from "../components/ActivitiesSection.astro";
 import SkillsSection from "../components/SkillsSection.astro";
 import ArticlesSection from "../components/ArticlesSection.astro";
+import profileImage from "../assets/icons/65676193.jpeg";
 
 const [activitiesRaw, articlesRaw, skillsRaw, works] = await Promise.all([
   getCollection("activities"),
@@ -28,9 +31,40 @@ const sectionLinks = [
   { href: "#skills", label: "Skills" },
   { href: "#articles", label: "Articles" },
 ];
+
+const optimizedProfile = await getImage({ src: profileImage, width: 512 });
+const profileImageUrl = new URL(optimizedProfile.src, Astro.site).href;
+const siteUrl = new URL("/", Astro.site).href;
+
+const personJsonLd: WithContext<Person> = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "伊藤 啓太",
+  alternateName: "Keita Ito",
+  jobTitle: "Student",
+  url: siteUrl,
+  image: profileImageUrl,
+  birthDate: "2004-07-09",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Tokyo",
+    addressCountry: "JP",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "電気通信大学",
+    url: "https://www.uec.ac.jp",
+  },
+  sameAs: [
+    "https://github.com/ke1ta1to",
+    "https://x.com/ke1ta1to",
+    "https://zenn.dev/kk79it",
+    "https://qiita.com/ke1ta1to",
+  ],
+};
 ---
 
-<Layout>
+<Layout jsonLd={personJsonLd}>
   <main>
     <HeroSection />
 

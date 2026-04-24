@@ -1,7 +1,9 @@
 ---
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
+import type { Thing, WithContext } from "schema-dts";
 import Header from "../components/Header.astro";
+import JsonLd from "../components/JsonLd.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import "../styles.css";
 
@@ -9,12 +11,14 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  jsonLd?: WithContext<Thing>;
 }
 
 const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
   noindex = false,
+  jsonLd,
 } = Astro.props;
 
 const isNotFound = Astro.url.pathname === "/404/";
@@ -43,6 +47,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    {jsonLd && <JsonLd data={jsonLd} />}
   </head>
   <body class="px-4 pt-20">
     <Header />
