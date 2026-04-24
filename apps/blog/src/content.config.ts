@@ -24,10 +24,11 @@ const articles = defineCollection({
 
 const skills = defineCollection({
   loader: file("src/data/skills.json"),
-  schema: z.object({
-    name: z.string(),
-    icon_url: z.url(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      icon: image(),
+    }),
 });
 
 const works = defineCollection({

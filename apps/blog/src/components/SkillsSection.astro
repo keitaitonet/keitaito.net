@@ -16,7 +16,7 @@ const { skills } = Astro.props;
       skills.map((s) => (
         <li class="flex flex-col items-center gap-2">
           <img
-            src={s.data.icon_url}
+            src={s.data.icon.src}
             alt=""
             width="32"
             height="32"
