@@ -30,13 +30,13 @@ const { articles } = Astro.props;
             >
               {format(article.data.published_at, "MMM d, yyyy")}
             </time>
-            <p class="decoration-primary leading-snug font-medium underline decoration-1 underline-offset-4 [grid-area:title] group-hover:decoration-2 group-focus-visible:decoration-2">
+            <h3 class="decoration-primary leading-snug font-medium underline decoration-1 underline-offset-4 [grid-area:title] group-hover:decoration-2 group-focus-visible:decoration-2">
               {article.data.title}
               <IconExternalLink
                 class="text-muted ml-1 inline size-3.5 align-middle"
                 aria-label="外部リンク"
               />
-            </p>
+            </h3>
             <p class="text-muted inline-flex items-center gap-3 font-mono text-xs tracking-wide [grid-area:meta]">
               <span class="uppercase">{article.data.source}</span>
               <span class="inline-flex items-center gap-1">
