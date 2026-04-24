@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
@@ -12,6 +13,11 @@ export default defineConfig({
   image: {
     layout: "constrained",
   },
+  integrations: [
+    sitemap({
+      filter: (page) => !page.endsWith("/404/"),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
