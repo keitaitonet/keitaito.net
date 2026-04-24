@@ -11,14 +11,14 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
-  jsonLd?: WithContext<Thing>;
+  jsonLd?: WithContext<Thing>[];
 }
 
 const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
   noindex = false,
-  jsonLd,
+  jsonLd = [],
 } = Astro.props;
 
 const isNotFound = Astro.url.pathname === "/404/";
@@ -47,7 +47,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    {jsonLd && <JsonLd data={jsonLd} />}
+    {jsonLd.map((item) => <JsonLd data={item} />)}
   </head>
   <body class="px-4 pt-20">
     <Header />

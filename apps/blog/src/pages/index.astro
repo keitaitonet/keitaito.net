@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { getImage } from "astro:assets";
-import type { Person, WithContext } from "schema-dts";
+import type { ItemList, Person, WithContext } from "schema-dts";
 import Layout from "../layouts/Layout.astro";
 import HeroSection from "../components/HeroSection.astro";
 import WorksSection from "../components/WorksSection.astro";
@@ -62,9 +62,21 @@ const personJsonLd: WithContext<Person> = {
     "https://qiita.com/ke1ta1to",
   ],
 };
+
+const worksItemList: WithContext<ItemList> = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Works",
+  itemListElement: works.map((work, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: new URL(`/works/${work.id}/`, Astro.site).href,
+    name: work.data.title,
+  })),
+};
 ---
 
-<Layout jsonLd={personJsonLd}>
+<Layout jsonLd={[personJsonLd, worksItemList]}>
   <main>
     <HeroSection />
 
