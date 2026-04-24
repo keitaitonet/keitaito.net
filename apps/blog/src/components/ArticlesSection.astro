@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { format } from "date-fns";
 import IconExternalLink from "../assets/icons/external-link.svg";
 import IconHeart from "../assets/icons/heart.svg";
+import Link from "./Link.astro";
 import SectionHeading from "./SectionHeading.astro";
 
 interface Props {
@@ -12,17 +13,20 @@ interface Props {
 const { articles } = Astro.props;
 ---
 
-<section id="articles" class="mx-auto max-w-5xl py-16">
-  <SectionHeading title="Articles" />
+<section
+  id="articles"
+  aria-labelledby="articles-heading"
+  class="mx-auto max-w-5xl py-16"
+>
+  <SectionHeading id="articles-heading" title="Articles" />
   <ul>
     {
       articles.map((article) => (
         <li class="border-border/50 border-b">
-          <a
+          <Link
             href={article.data.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 py-5 [grid-template-areas:'title_title'_'date_meta'] md:grid-cols-[8rem_1fr_auto] md:gap-x-8 md:gap-y-0 md:[grid-template-areas:'date_title_meta']"
+            showIcon={false}
+            class="group grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 py-5 no-underline [grid-template-areas:'title_title'_'date_meta'] md:grid-cols-[8rem_1fr_auto] md:gap-x-8 md:gap-y-0 md:[grid-template-areas:'date_title_meta']"
           >
             <time
               datetime={format(article.data.published_at, "yyyy-MM-dd")}
@@ -44,7 +48,7 @@ const { articles } = Astro.props;
                 {article.data.liked_count}
               </span>
             </p>
-          </a>
+          </Link>
         </li>
       ))
     }

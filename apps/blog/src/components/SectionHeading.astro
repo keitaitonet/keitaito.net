@@ -1,11 +1,12 @@
 ---
 interface Props {
   title: string;
+  id?: string;
 }
 
-const { title } = Astro.props;
+const { title, id } = Astro.props;
 ---
 
-<h2 class="mb-10 border-b pb-3 text-2xl font-medium">
+<h2 id={id} class="mb-10 border-b pb-3 text-2xl font-medium">
   {title}
 </h2>

@@ -10,8 +10,12 @@ interface Props {
 const { works } = Astro.props;
 ---
 
-<section id="works" class="mx-auto max-w-5xl py-16">
-  <SectionHeading title="Works" />
+<section
+  id="works"
+  aria-labelledby="works-heading"
+  class="mx-auto max-w-5xl py-16"
+>
+  <SectionHeading id="works-heading" title="Works" />
   <div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
     {
       works.map((work) => (

@@ -4,6 +4,7 @@ import { getCollection, getEntry, render } from "astro:content";
 import { Image, getImage } from "astro:assets";
 import type { CreativeWork, WithContext } from "schema-dts";
 import Layout from "../../layouts/Layout.astro";
+import Link from "../../components/Link.astro";
 import IconArrowLeft from "../../assets/icons/arrow-left.svg";
 import IconArrowRight from "../../assets/icons/arrow-right.svg";
 import { SITE_TITLE } from "../../consts";
@@ -67,7 +68,8 @@ const workJsonLd: WithContext<CreativeWork> = {
   description={description}
   jsonLd={workJsonLd}
 >
-  <article class="mx-auto max-w-3xl">
+  <main>
+    <article class="mx-auto max-w-3xl">
     <p
       class="text-primary my-4 font-mono text-xs tracking-wide"
       aria-label={`Entry ${index + 1} of ${total}`}
@@ -117,7 +119,7 @@ const workJsonLd: WithContext<CreativeWork> = {
         "prose-li:marker:text-primary prose-hr:border-border",
       ]}
     >
-      <Content />
+      <Content components={{ a: Link }} />
     </div>
 
     <footer class="mt-24 border-t pt-10">
@@ -151,5 +153,6 @@ const workJsonLd: WithContext<CreativeWork> = {
         }
       </nav>
     </footer>
-  </article>
+    </article>
+  </main>
 </Layout>

@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -14,6 +15,7 @@ export default defineConfig({
     layout: "constrained",
   },
   integrations: [
+    mdx(),
     sitemap({
       filter: (page) => !page.endsWith("/404/"),
     }),

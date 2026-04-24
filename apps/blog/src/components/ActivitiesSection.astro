@@ -10,8 +10,12 @@ interface Props {
 const { activities } = Astro.props;
 ---
 
-<section id="activities" class="mx-auto max-w-5xl py-16">
-  <SectionHeading title="Activities" />
+<section
+  id="activities"
+  aria-labelledby="activities-heading"
+  class="mx-auto max-w-5xl py-16"
+>
+  <SectionHeading id="activities-heading" title="Activities" />
   <ol>
     {
       activities.map((activity) => (

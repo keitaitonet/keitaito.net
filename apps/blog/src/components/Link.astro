@@ -1,23 +1,40 @@
 ---
+import IconExternalLink from "../assets/icons/external-link.svg";
 import { cn } from "../lib/utils";
 
 interface Props {
   href: string;
   external?: boolean;
+  showIcon?: boolean;
   class?: string;
 }
 
-const { href, external = false, class: className } = Astro.props;
+const {
+  href,
+  external,
+  showIcon = true,
+  class: className,
+} = Astro.props;
+
+const isExternal = external ?? /^https?:\/\//i.test(href);
 ---
 
 <a
   href={href}
-  target={external ? "_blank" : undefined}
-  rel={external ? "noopener noreferrer" : undefined}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
   class={cn(
     "decoration-primary underline underline-offset-4 hover:decoration-2 focus-visible:decoration-2",
     className,
   )}
 >
   <slot />
+  {
+    isExternal && showIcon && (
+      <IconExternalLink
+        class="text-muted ml-1 inline size-3.5 align-middle"
+        aria-label="外部リンク"
+      />
+    )
+  }
 </a>

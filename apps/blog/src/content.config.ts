@@ -32,7 +32,7 @@ const skills = defineCollection({
 });
 
 const works = defineCollection({
-  loader: glob({ base: "./src/data/works", pattern: "**/*.md" }),
+  loader: glob({ base: "./src/data/works", pattern: "**/*.{md,mdx}" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
