@@ -1,3 +1,14 @@
+/* =========================================================================
+ * Design System Rules (do not violate without discussion):
+ * - Horizontal rhythm: body is the single source of px-4. Sections MUST NOT
+ *   add their own left/right padding. Full-bleed rows use `-mx-4`.
+ * - Responsive: single breakpoint `md` (>=768px). Do NOT introduce sm/lg/xl.
+ *   Mobile is compact, md expands.
+ * - Containers: `max-w-5xl` for list/index sections, `max-w-3xl` for
+ *   long-form article pages. No other max-w-*xl tier.
+ * - Meta text default: `font-mono text-xs tracking-wide`. The only
+ *   intentional exception is Hero's "Keita Ito" (`text-sm tracking-[0.2em]`).
+ * ========================================================================= */
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -5,13 +16,33 @@
   --font-sans: var(--font-noto-sans-jp);
   --font-mono: var(--font-noto-sans-mono);
 
-  --color-primary: oklch(70.4% 0.14 182.503);
-  --color-foreground: oklch(37.1% 0 0);
-  --color-muted: oklch(55.6% 0 0);
+  --color-background: oklch(99% 0.004 250);
+  --color-foreground: oklch(20% 0.012 250);
+  --color-muted: oklch(52% 0.012 250);
+  --color-border: oklch(92% 0.008 250);
+
+  --color-primary: oklch(55% 0.13 185);
+  --color-accent: oklch(62% 0.2 25);
 }
 
 @layer base {
+  html {
+    color-scheme: light;
+    @apply scroll-pt-20;
+  }
+  * {
+    @apply border-border;
+  }
   body {
-    @apply text-foreground bg-olive-50 wrap-anywhere;
+    @apply text-foreground bg-background;
+  }
+  a:focus-visible {
+    @apply outline-primary outline-2 outline-offset-4;
+  }
+  ::selection {
+    @apply bg-primary/20;
+  }
+  time {
+    font-variant-numeric: tabular-nums;
   }
 }

@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { format } from "date-fns";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  activities: CollectionEntry<"activities">[];
+}
+
+const { activities } = Astro.props;
+---
+
+<section
+  id="activities"
+  aria-labelledby="activities-heading"
+  class="mx-auto max-w-5xl py-16"
+>
+  <SectionHeading id="activities-heading" title="Activities" />
+  <ol>
+    {
+      activities.map((activity) => (
+        <li class="border-border/50 grid grid-cols-[5rem_1fr] gap-x-3 gap-y-1 border-b py-5 md:grid-cols-[8rem_1fr] md:gap-x-8">
+          <time
+            datetime={format(activity.data.date, "yyyy-MM-dd")}
+            class="text-primary font-mono text-xs tracking-wide"
+          >
+            {format(activity.data.date, "MMM yyyy")}
+          </time>
+          <div>
+            <h3 class="leading-snug font-medium">{activity.data.title}</h3>
+            <p class="text-muted mt-1 line-clamp-2 text-sm leading-relaxed">
+              {activity.data.description}
+            </p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>

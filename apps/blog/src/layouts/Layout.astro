@@ -1,17 +1,61 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
+import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+import type { Thing, WithContext } from "schema-dts";
 import Header from "../components/Header.astro";
+import JsonLd from "../components/JsonLd.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import "../styles.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  jsonLd?: WithContext<Thing>[];
+}
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  noindex = false,
+  jsonLd = [],
+} = Astro.props;
+
+const isNotFound = Astro.url.pathname === "/404/";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
 <html lang="ja">
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <Font cssVariable="--font-noto-sans-jp" preload />
+    <Font cssVariable="--font-noto-sans-mono" preload />
+    <ClientRouter />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#00877a" />
+
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {!isNotFound && <link rel="canonical" href={canonicalURL} />}
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    {jsonLd.map((item) => <JsonLd data={item} />)}
   </head>
   <body class="px-4 pt-20">
     <Header />
     <slot />
+    <footer class="-mx-4 mt-16 border-t px-4 py-6 md:mt-24 md:py-10">
+      <p class="text-muted mx-auto max-w-5xl font-mono text-xs tracking-wide">
+        (c) {new Date().getFullYear()} Keita Ito. All rights reserved.
+      </p>
+    </footer>
   </body>
 </html>

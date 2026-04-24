@@ -8,14 +8,20 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.8",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "sharp": "^0.34.5",
+    "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@tailwindcss/typography": "^0.5.19",
+    "schema-dts": "^2.0.0",
     "typescript": "^5.9.3"
   }
 }

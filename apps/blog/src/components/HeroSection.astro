@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import Link from "./Link.astro";
+import profileImage from "../assets/icons/65676193.jpeg";
+
+const profileLinks = [
+  { href: "https://x.com/ke1ta1to", label: "X" },
+  { href: "https://github.com/ke1ta1to", label: "GitHub" },
+  { href: "https://zenn.dev/kk79it", label: "Zenn" },
+  { href: "https://qiita.com/ke1ta1to", label: "Qiita" },
+];
+---
+
+<section
+  aria-labelledby="hero-heading"
+  class="mx-auto grid max-w-5xl grid-cols-1 items-start gap-12 pb-20 md:grid-cols-[1fr_auto] md:gap-20 md:py-28"
+>
+  <div>
+    <h1
+      id="hero-heading"
+      class="-ml-[0.15em] text-5xl font-light tracking-tight md:text-7xl"
+    >
+      伊藤 啓太
+    </h1>
+    <p class="text-muted mt-4 font-mono text-sm tracking-[0.2em] uppercase">
+      Keita Ito
+    </p>
+    <dl
+      class="mt-10 grid max-w-xl grid-cols-[5rem_1fr] items-baseline gap-x-4 gap-y-3 text-sm md:grid-cols-[7rem_1fr]"
+    >
+      <dt class="text-muted font-mono text-xs tracking-wide">birthday</dt>
+      <dd><time datetime="2004-07-09">Jul 9, 2004</time></dd>
+
+      <dt class="text-muted font-mono text-xs tracking-wide">location</dt>
+      <dd>Tokyo, Japan</dd>
+
+      <dt class="text-muted font-mono text-xs tracking-wide">school</dt>
+      <dd class="leading-relaxed">
+        電気通信大学<br />
+        情報理工学域 I類<br />
+        メディア情報学プログラム
+      </dd>
+
+      <dt class="text-muted font-mono text-xs tracking-wide">lab</dt>
+      <dd>
+        <Link href="http://www.ohsuga.lab.uec.ac.jp" external>
+          田原・清研究室
+        </Link>
+      </dd>
+
+      <dt class="text-muted font-mono text-xs tracking-wide">links</dt>
+      <dd class="flex flex-wrap items-center gap-x-4">
+        {
+          profileLinks.map(({ href, label }) => (
+            <Link href={href} external>
+              {label}
+            </Link>
+          ))
+        }
+      </dd>
+    </dl>
+  </div>
+  <figure
+    class="order-first justify-self-center md:order-0 md:mt-10 md:justify-self-auto"
+  >
+    <Image
+      src={profileImage}
+      alt="伊藤 啓太"
+      widths={[384, 576, 640]}
+      sizes="(min-width: 768px) 288px, 384px"
+      loading="eager"
+      fetchpriority="high"
+      class="aspect-square w-full max-w-sm object-cover md:w-72 md:max-w-none"
+    />
+  </figure>
+</section>

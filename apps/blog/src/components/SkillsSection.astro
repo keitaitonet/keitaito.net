@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  skills: CollectionEntry<"skills">[];
+}
+
+const { skills } = Astro.props;
+---
+
+<section
+  id="skills"
+  aria-labelledby="skills-heading"
+  class="mx-auto max-w-5xl py-16"
+>
+  <SectionHeading id="skills-heading" title="Skills" />
+  <ul class="grid grid-cols-4 gap-x-4 gap-y-6 md:grid-cols-6 md:gap-y-8">
+    {
+      skills.map((s) => (
+        <li class="flex flex-col items-center gap-2">
+          <img
+            src={s.data.icon.src}
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            class="h-8 w-8"
+          />
+          <span class="text-muted text-center font-mono text-xs leading-tight">
+            {s.data.name}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

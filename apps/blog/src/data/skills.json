@@ -2,131 +2,131 @@
   {
     "id": "1",
     "name": "Amazon Web Services",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
+    "icon": "./skills/amazonwebservices.svg"
   },
   {
     "id": "2",
     "name": "Cloudflare",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg"
+    "icon": "./skills/cloudflare.svg"
   },
   {
     "id": "3",
     "name": "Docker",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+    "icon": "./skills/docker.svg"
   },
   {
     "id": "4",
     "name": "Firebase",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg"
+    "icon": "./skills/firebase.svg"
   },
   {
     "id": "5",
     "name": "Supabase",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg"
+    "icon": "./skills/supabase.svg"
   },
   {
     "id": "6",
     "name": "MySQL",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+    "icon": "./skills/mysql.svg"
   },
   {
     "id": "7",
     "name": "PostgreSQL",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+    "icon": "./skills/postgresql.svg"
   },
   {
     "id": "8",
     "name": "Next.js",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
+    "icon": "./skills/nextjs.svg"
   },
   {
     "id": "9",
     "name": "Storybook",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/storybook/storybook-original.svg"
+    "icon": "./skills/storybook.svg"
   },
   {
     "id": "10",
     "name": "Terraform",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg"
+    "icon": "./skills/terraform.svg"
   },
   {
     "id": "11",
     "name": "React",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+    "icon": "./skills/react.svg"
   },
   {
     "id": "12",
     "name": "Vue.js",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg"
+    "icon": "./skills/vuejs.svg"
   },
   {
     "id": "13",
     "name": "NestJS",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg"
+    "icon": "./skills/nestjs.svg"
   },
   {
     "id": "14",
     "name": "jQuery",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jquery/jquery-original.svg"
+    "icon": "./skills/jquery.svg"
   },
   {
     "id": "15",
     "name": "Apache",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apache/apache-original.svg"
+    "icon": "./skills/apache.svg"
   },
   {
     "id": "16",
     "name": "Electron",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/electron/electron-original.svg"
+    "icon": "./skills/electron.svg"
   },
   {
     "id": "17",
     "name": "GitHub Actions",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg"
+    "icon": "./skills/githubactions.svg"
   },
   {
     "id": "18",
     "name": "Unity",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg"
+    "icon": "./skills/unity.svg"
   },
   {
     "id": "19",
     "name": "TypeScript",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+    "icon": "./skills/typescript.svg"
   },
   {
     "id": "20",
     "name": "Node.js",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
+    "icon": "./skills/nodejs.svg"
   },
   {
     "id": "21",
     "name": "Python",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+    "icon": "./skills/python.svg"
   },
   {
     "id": "22",
     "name": "Java",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+    "icon": "./skills/java.svg"
   },
   {
     "id": "23",
     "name": "HTML",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+    "icon": "./skills/html5.svg"
   },
   {
     "id": "24",
     "name": "Ruby",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg"
+    "icon": "./skills/ruby.svg"
   },
   {
     "id": "25",
     "name": "C",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"
+    "icon": "./skills/c.svg"
   },
   {
     "id": "26",
     "name": "C#",
-    "icon_url": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg"
+    "icon": "./skills/csharp.svg"
   }
 ]
