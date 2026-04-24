@@ -9,12 +9,7 @@ interface Props {
   class?: string;
 }
 
-const {
-  href,
-  external,
-  showIcon = true,
-  class: className,
-} = Astro.props;
+const { href, external, showIcon = true, class: className } = Astro.props;
 
 const isExternal = external ?? /^https?:\/\//i.test(href);
 ---
