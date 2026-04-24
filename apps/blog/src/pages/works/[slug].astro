@@ -20,8 +20,6 @@ export const getStaticPaths = (async () => {
   return works.map((work, index) => ({
     params: { slug: work.id },
     props: {
-      index,
-      total: works.length,
       prev: summarize(index - 1),
       next: summarize(index + 1),
     },
@@ -32,10 +30,9 @@ const { slug } = Astro.params;
 const work = await getEntry("works", slug);
 if (!work) throw new Error(`Work not found: ${slug}`);
 
-const { index, total, prev, next } = Astro.props;
+const { prev, next } = Astro.props;
 const { Content } = await render(work);
 const { title, description, keywords, thumbnail } = work.data;
-const pad2 = (n: number) => String(n).padStart(2, "0");
 
 const navLinks = [
   { entry: prev, side: "prev" as const, label: "prev" },
@@ -94,13 +91,6 @@ const breadcrumbJsonLd: WithContext<BreadcrumbList> = {
 >
   <main>
     <article class="mx-auto max-w-3xl">
-      <p
-        class="text-primary my-4 font-mono text-xs tracking-wide"
-        aria-label={`Entry ${index + 1} of ${total}`}
-      >
-        {pad2(index + 1)} / {pad2(total)}
-      </p>
-
       <Image
         src={thumbnail}
         alt={title}
