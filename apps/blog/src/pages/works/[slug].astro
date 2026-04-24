@@ -43,13 +43,18 @@ const navLinks = [
 
 <Layout title={`${title} | ${SITE_TITLE}`} description={description}>
   <article class="mx-auto max-w-3xl">
-    <p class="text-primary my-4 font-mono text-xs tracking-wide">
+    <p
+      class="text-primary my-4 font-mono text-xs tracking-wide"
+      aria-label={`Entry ${index + 1} of ${total}`}
+    >
       {pad2(index + 1)} / {pad2(total)}
     </p>
 
     <Image
       src={thumbnail}
-      alt=""
+      alt={title}
+      loading="eager"
+      fetchpriority="high"
       transition:name={`work-thumb-${work.id}`}
       class="aspect-video w-full object-cover"
     />
@@ -91,7 +96,7 @@ const navLinks = [
     </div>
 
     <footer class="mt-24 border-t pt-10">
-      <nav class="grid grid-cols-2 gap-4">
+      <nav aria-label="Works navigation" class="grid grid-cols-2 gap-4">
         {
           navLinks.map(({ entry, side, label }) => (
             <div class={side === "prev" ? "text-left" : "text-right"}>
