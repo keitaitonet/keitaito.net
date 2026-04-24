@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import IconArrowLeft from "../../assets/icons/arrow-left.svg";
 import IconArrowRight from "../../assets/icons/arrow-right.svg";
+import { SITE_TITLE } from "../../consts";
 
 export const getStaticPaths = (async () => {
   const works = (await getCollection("works")).sort((a, b) =>
@@ -40,7 +41,7 @@ const navLinks = [
 ];
 ---
 
-<Layout>
+<Layout title={`${title} | ${SITE_TITLE}`} description={description}>
   <article class="mx-auto max-w-3xl">
     <p class="text-primary my-4 font-mono text-xs tracking-wide">
       {pad2(index + 1)} / {pad2(total)}
