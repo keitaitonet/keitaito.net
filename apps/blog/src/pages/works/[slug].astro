@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import { getCollection, getEntry, render } from "astro:content";
 import { Image, getImage } from "astro:assets";
-import type { CreativeWork, WithContext } from "schema-dts";
+import type { BreadcrumbList, CreativeWork, WithContext } from "schema-dts";
 import Layout from "../../layouts/Layout.astro";
 import Link from "../../components/Link.astro";
 import IconArrowLeft from "../../assets/icons/arrow-left.svg";
@@ -61,98 +61,126 @@ const workJsonLd: WithContext<CreativeWork> = {
     url: siteUrl,
   },
 };
+
+const breadcrumbJsonLd: WithContext<BreadcrumbList> = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Works",
+      item: new URL("/#works", Astro.site).href,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: title,
+    },
+  ],
+};
 ---
 
 <Layout
   title={`${title} | ${SITE_TITLE}`}
   description={description}
-  jsonLd={[workJsonLd]}
+  jsonLd={[workJsonLd, breadcrumbJsonLd]}
 >
   <main>
     <article class="mx-auto max-w-3xl">
-    <p
-      class="text-primary my-4 font-mono text-xs tracking-wide"
-      aria-label={`Entry ${index + 1} of ${total}`}
-    >
-      {pad2(index + 1)} / {pad2(total)}
-    </p>
-
-    <Image
-      src={thumbnail}
-      alt={title}
-      loading="eager"
-      fetchpriority="high"
-      transition:name={`work-thumb-${work.id}`}
-      class="aspect-video w-full object-cover"
-    />
-
-    <div class="mt-10 border-b pb-10">
-      <h1
-        transition:name={`work-title-${work.id}`}
-        class="text-4xl font-light tracking-tight md:text-6xl"
+      <p
+        class="text-primary my-4 font-mono text-xs tracking-wide"
+        aria-label={`Entry ${index + 1} of ${total}`}
       >
-        {title}
-      </h1>
-      <p class="text-muted mt-6 leading-relaxed">
-        {description}
+        {pad2(index + 1)} / {pad2(total)}
       </p>
-      <ul
-        class="text-muted mt-8 flex flex-wrap gap-x-3 font-mono text-xs tracking-wide"
+
+      <Image
+        src={thumbnail}
+        alt={title}
+        loading="eager"
+        fetchpriority="high"
+        transition:name={`work-thumb-${work.id}`}
+        class="aspect-video w-full object-cover"
+      />
+
+      <div class="mt-10 border-b pb-10">
+        <h1
+          transition:name={`work-title-${work.id}`}
+          class="text-4xl font-light tracking-tight md:text-6xl"
+        >
+          {title}
+        </h1>
+        <p class="text-muted mt-6 leading-relaxed">
+          {description}
+        </p>
+        <ul
+          class="text-muted mt-8 flex flex-wrap gap-x-3 font-mono text-xs tracking-wide"
+        >
+          {keywords.map((k) => <li>{k}</li>)}
+        </ul>
+      </div>
+
+      <div
+        class:list={[
+          "prose prose-neutral mt-16 max-w-none",
+          "prose-headings:font-medium prose-headings:tracking-tight",
+          "prose-h2:mt-16 prose-h2:border-b prose-h2:border-border prose-h2:pb-3 prose-h2:text-2xl",
+          "prose-h3:mt-10 prose-h3:text-lg prose-h3:text-foreground",
+          "prose-p:leading-relaxed prose-p:text-foreground",
+          "prose-strong:text-foreground prose-strong:font-medium",
+          "prose-a:text-foreground prose-a:decoration-primary prose-a:decoration-1 prose-a:underline-offset-4",
+          "hover:prose-a:text-primary focus-visible:prose-a:text-primary",
+          "prose-code:font-mono prose-code:text-primary prose-code:text-[0.9em]",
+          "prose-code:before:content-none prose-code:after:content-none",
+          "prose-img:rounded-none prose-img:border prose-img:border-border",
+          "prose-li:marker:text-primary prose-hr:border-border",
+        ]}
       >
-        {keywords.map((k) => <li>{k}</li>)}
-      </ul>
-    </div>
+        <Content components={{ a: Link }} />
+      </div>
 
-    <div
-      class:list={[
-        "prose prose-neutral mt-16 max-w-none",
-        "prose-headings:font-medium prose-headings:tracking-tight",
-        "prose-h2:mt-16 prose-h2:border-b prose-h2:border-border prose-h2:pb-3 prose-h2:text-2xl",
-        "prose-h3:mt-10 prose-h3:text-lg prose-h3:text-foreground",
-        "prose-p:leading-relaxed prose-p:text-foreground",
-        "prose-strong:text-foreground prose-strong:font-medium",
-        "prose-a:text-foreground prose-a:decoration-primary prose-a:decoration-1 prose-a:underline-offset-4",
-        "hover:prose-a:text-primary focus-visible:prose-a:text-primary",
-        "prose-code:font-mono prose-code:text-primary prose-code:text-[0.9em]",
-        "prose-code:before:content-none prose-code:after:content-none",
-        "prose-img:rounded-none prose-img:border prose-img:border-border",
-        "prose-li:marker:text-primary prose-hr:border-border",
-      ]}
-    >
-      <Content components={{ a: Link }} />
-    </div>
-
-    <footer class="mt-24 border-t pt-10">
-      <nav aria-label="Works navigation" class="grid grid-cols-2 gap-4">
-        {
-          navLinks.map(({ entry, side, label }) => (
-            <div class={side === "prev" ? "text-left" : "text-right"}>
-              {entry && (
-                <a
-                  href={`/works/${entry.id}/`}
-                  data-astro-prefetch="viewport"
-                  class="group block"
-                >
-                  <p
+      <footer class="mt-24 border-t pt-10">
+        <nav aria-label="Works navigation" class="grid grid-cols-2 gap-4">
+          {
+            navLinks.map(
+              ({ entry, side, label }) =>
+                entry && (
+                  <a
+                    href={`/works/${entry.id}/`}
+                    data-astro-prefetch="viewport"
                     class:list={[
-                      "text-muted group-hover:text-primary group-focus-visible:text-primary flex items-center gap-1 font-mono text-xs tracking-wide transition",
-                      side === "next" && "justify-end",
+                      "group block",
+                      side === "prev"
+                        ? "col-start-1 text-left"
+                        : "col-start-2 text-right",
                     ]}
                   >
-                    {side === "prev" && <IconArrowLeft class="size-3" />}
-                    <span>{label}</span>
-                    {side === "next" && <IconArrowRight class="size-3" />}
-                  </p>
-                  <p class="decoration-primary mt-1 text-sm font-medium underline decoration-1 underline-offset-4 group-hover:decoration-2 group-focus-visible:decoration-2">
-                    {entry.title}
-                  </p>
-                </a>
-              )}
-            </div>
-          ))
-        }
-      </nav>
-    </footer>
+                    <p
+                      class:list={[
+                        "text-muted group-hover:text-primary group-focus-visible:text-primary flex items-center gap-1 font-mono text-xs tracking-wide transition",
+                        side === "next" && "justify-end",
+                      ]}
+                    >
+                      {side === "prev" && <IconArrowLeft class="size-3" />}
+                      <span>{label}</span>
+                      {side === "next" && <IconArrowRight class="size-3" />}
+                    </p>
+                    <p class="decoration-primary mt-1 text-sm font-medium underline decoration-1 underline-offset-4 group-hover:decoration-2 group-focus-visible:decoration-2">
+                      {entry.title}
+                    </p>
+                  </a>
+                ),
+            )
+          }
+        </nav>
+      </footer>
     </article>
   </main>
 </Layout>
