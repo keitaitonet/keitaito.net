@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        env: [development]
+        env: [development, production]
     steps:
       - uses: actions/checkout@v6
 
