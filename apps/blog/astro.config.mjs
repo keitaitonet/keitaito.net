@@ -28,7 +28,7 @@ export default defineConfig({
       provider: fontProviders.google(),
       name: "Noto Sans JP",
       cssVariable: "--font-noto-sans-jp",
-      weights: ["300 500"],
+      weights: ["300 700"],
       styles: ["normal"],
       subsets: ["japanese"],
       display: "swap",

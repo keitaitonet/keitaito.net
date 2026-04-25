@@ -34,7 +34,7 @@ const { articles } = Astro.props;
             >
               {format(article.data.published_at, "MMM d, yyyy")}
             </time>
-            <h3 class="decoration-primary leading-snug font-medium underline decoration-1 underline-offset-4 [grid-area:title] group-hover:decoration-2 group-focus-visible:decoration-2">
+            <h3 class="decoration-primary leading-snug underline decoration-1 underline-offset-4 [grid-area:title] group-hover:decoration-2 group-focus-visible:decoration-2">
               {article.data.title}
               <IconExternalLink
                 class="text-muted ml-1 inline size-3.5 align-middle"
