@@ -2,7 +2,7 @@ import type { APIRoute, GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import { renderOgTemplate } from "../../../lib/og-template";
-import { renderOgPng } from "../../../lib/og-render";
+import { loadImageAsDataUrl, renderOgPng } from "../../../lib/og-render";
 
 type Props = { work: CollectionEntry<"works"> };
 
@@ -14,12 +14,13 @@ export const getStaticPaths = (async () => {
   }));
 }) satisfies GetStaticPaths;
 
-export const GET: APIRoute<Props> = ({ props: { work } }) =>
+export const GET: APIRoute<Props> = async ({ props: { work } }) =>
   renderOgPng(
     renderOgTemplate({
       eyebrow: "Works",
       title: work.data.title,
       description: work.data.description,
       keywords: work.data.keywords,
+      imageSrc: await loadImageAsDataUrl(work.data.thumbnail),
     }),
   );

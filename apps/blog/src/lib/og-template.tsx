@@ -13,14 +13,18 @@ const LOGO_HEIGHT = 32;
 const LOGO_WIDTH = Math.round((317 / 39) * LOGO_HEIGHT);
 const LOGO_SRC = `data:image/svg+xml;utf8,${encodeURIComponent(logoSvg)}`;
 
+const IMAGE_SIZE = 320;
+const COLUMN_GAP = 56;
+
 interface Props {
   eyebrow: string;
   title: string;
   description: string;
   keywords: string[];
+  imageSrc: string;
 }
 
-const MAX_DESCRIPTION_CHARS = 80;
+const MAX_DESCRIPTION_CHARS = 56;
 const truncate = (s: string, max: number) =>
   s.length > max ? `${s.slice(0, max - 1).trimEnd()}…` : s;
 
@@ -29,6 +33,7 @@ export const renderOgTemplate = ({
   title,
   description,
   keywords,
+  imageSrc,
 }: Props): ReactElement => (
   <div
     style={{
@@ -42,44 +47,70 @@ export const renderOgTemplate = ({
       fontFamily: FONT_SANS,
     }}
   >
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div
-        style={{
-          display: "flex",
-          fontSize: 20,
-          textTransform: "uppercase",
-          letterSpacing: "0.24em",
-          color: COLOR_PRIMARY,
-        }}
-      >
-        {eyebrow}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          fontSize: 88,
-          lineHeight: 1.15,
-          letterSpacing: "-0.02em",
-          color: COLOR_FG,
-          marginTop: 36,
-        }}
-      >
-        {title}
-      </div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        gap: COLUMN_GAP,
+        alignItems: "flex-start",
+      }}
+    >
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          fontSize: 26,
-          lineHeight: 1.5,
-          color: COLOR_MUTED,
-          marginTop: 32,
-          maxHeight: 78,
-          overflow: "hidden",
+          flex: 1,
+          minWidth: 0,
         }}
       >
-        {truncate(description, MAX_DESCRIPTION_CHARS)}
+        <div
+          style={{
+            display: "flex",
+            fontSize: 20,
+            textTransform: "uppercase",
+            letterSpacing: "0.24em",
+            color: COLOR_PRIMARY,
+          }}
+        >
+          {eyebrow}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            fontSize: 80,
+            lineHeight: 1.15,
+            letterSpacing: "-0.02em",
+            color: COLOR_FG,
+            marginTop: 32,
+          }}
+        >
+          {title}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            fontSize: 24,
+            lineHeight: 1.5,
+            color: COLOR_MUTED,
+            marginTop: 28,
+            maxHeight: 72,
+            overflow: "hidden",
+          }}
+        >
+          {truncate(description, MAX_DESCRIPTION_CHARS)}
+        </div>
       </div>
+
+      <img
+        src={imageSrc}
+        width={IMAGE_SIZE}
+        height={IMAGE_SIZE}
+        style={{
+          objectFit: "cover",
+          border: `1px solid ${COLOR_BORDER}`,
+        }}
+      />
     </div>
 
     <div style={{ display: "flex", flexDirection: "column" }}>
