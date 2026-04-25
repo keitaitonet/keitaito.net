@@ -1,5 +1,21 @@
 ---
 const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+
+const inlineScript = `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', ${JSON.stringify(measurementId)}, { send_page_view: false });
+
+  document.addEventListener('astro:page-load', function () {
+    gtag('event', 'page_view', {
+      page_path: location.pathname + location.search,
+      page_location: location.href,
+      page_title: document.title,
+    });
+  });
+`;
 ---
 
 {
@@ -10,23 +26,7 @@ const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
       />
-      <script is:inline define:vars={{ measurementId }}>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
-        window.gtag = gtag;
-        gtag("js", new Date());
-        gtag("config", measurementId, { send_page_view: false });
-
-        document.addEventListener("astro:page-load", () => {
-          gtag("event", "page_view", {
-            page_path: location.pathname + location.search,
-            page_location: location.href,
-            page_title: document.title,
-          });
-        });
-      </script>
+      <script is:inline set:html={inlineScript} />
     </>
   )
 }
