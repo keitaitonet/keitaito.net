@@ -2,6 +2,7 @@
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import type { Thing, WithContext } from "schema-dts";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import Header from "../components/Header.astro";
 import JsonLd from "../components/JsonLd.astro";
 import {
@@ -82,6 +83,8 @@ const ogImageURL = new URL(ogImage, Astro.site).href;
     <meta name="twitter:creator" content={TWITTER_HANDLE} />
 
     {jsonLd.map((item) => <JsonLd data={item} />)}
+
+    <GoogleAnalytics />
   </head>
   <body class="px-4 pt-20">
     <Header />
