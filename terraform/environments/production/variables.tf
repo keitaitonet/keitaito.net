@@ -17,3 +17,15 @@ variable "github_repo" {
 variable "github_environment" {
   type = string
 }
+
+variable "domain_name" {
+  type = string
+}
+
+variable "dns_zone_id" {
+  type = string
+}
+
+variable "shared_dns_role_arn" {
+  type = string
+}
