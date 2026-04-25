@@ -4,7 +4,16 @@ import { ClientRouter } from "astro:transitions";
 import type { Thing, WithContext } from "schema-dts";
 import Header from "../components/Header.astro";
 import JsonLd from "../components/JsonLd.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import {
+  DEFAULT_OG_IMAGE,
+  DEFAULT_OG_IMAGE_HEIGHT,
+  DEFAULT_OG_IMAGE_TYPE,
+  DEFAULT_OG_IMAGE_WIDTH,
+  SITE_DESCRIPTION,
+  SITE_LOCALE,
+  SITE_TITLE,
+  TWITTER_HANDLE,
+} from "../consts";
 import "../styles.css";
 
 interface Props {
@@ -12,17 +21,32 @@ interface Props {
   description?: string;
   noindex?: boolean;
   jsonLd?: WithContext<Thing>[];
+  ogType?: "website" | "article";
+  ogImage?: string | URL;
+  ogImageAlt?: string;
+  ogImageType?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
 }
 
 const {
-  title = SITE_TITLE,
+  title,
   description = SITE_DESCRIPTION,
   noindex = false,
   jsonLd = [],
+  ogType = "website",
+  ogImage = DEFAULT_OG_IMAGE,
+  ogImageAlt = title ?? SITE_TITLE,
+  ogImageType = DEFAULT_OG_IMAGE_TYPE,
+  ogImageWidth = DEFAULT_OG_IMAGE_WIDTH,
+  ogImageHeight = DEFAULT_OG_IMAGE_HEIGHT,
 } = Astro.props;
 
 const isNotFound = Astro.url.pathname === "/404/";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const pageTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
+const ogTitle = title ?? SITE_TITLE;
+const ogImageURL = new URL(ogImage, Astro.site).href;
 ---
 
 <!doctype html>
@@ -44,8 +68,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     {noindex && <meta name="robots" content="noindex, follow" />}
     {!isNotFound && <link rel="canonical" href={canonicalURL} />}
 
-    <title>{title}</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:locale" content={SITE_LOCALE} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:type" content={ogImageType} />
+    <meta property="og:image:width" content={String(ogImageWidth)} />
+    <meta property="og:image:height" content={String(ogImageHeight)} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={TWITTER_HANDLE} />
+    <meta name="twitter:creator" content={TWITTER_HANDLE} />
 
     {jsonLd.map((item) => <JsonLd data={item} />)}
   </head>

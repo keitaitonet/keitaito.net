@@ -7,7 +7,6 @@ import Layout from "../../layouts/Layout.astro";
 import Link from "../../components/Link.astro";
 import IconArrowLeft from "../../assets/icons/arrow-left.svg";
 import IconArrowRight from "../../assets/icons/arrow-right.svg";
-import { SITE_TITLE } from "../../consts";
 
 export const getStaticPaths = (async () => {
   const works = (await getCollection("works")).sort((a, b) =>
@@ -43,6 +42,7 @@ const optimizedThumbnail = await getImage({ src: thumbnail, width: 1200 });
 const thumbnailUrl = new URL(optimizedThumbnail.src, Astro.site).href;
 const pageUrl = new URL(`/works/${work.id}/`, Astro.site).href;
 const siteUrl = new URL("/", Astro.site).href;
+const ogImagePath = `/works/${work.id}/og.png`;
 
 const workJsonLd: WithContext<CreativeWork> = {
   "@context": "https://schema.org",
@@ -85,8 +85,10 @@ const breadcrumbJsonLd: WithContext<BreadcrumbList> = {
 ---
 
 <Layout
-  title={`${title} | ${SITE_TITLE}`}
+  title={title}
   description={description}
+  ogType="article"
+  ogImage={ogImagePath}
   jsonLd={[workJsonLd, breadcrumbJsonLd]}
 >
   <main>
