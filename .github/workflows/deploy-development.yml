@@ -21,7 +21,7 @@ jobs:
     name: Deploy
     needs: check
     runs-on: ubuntu-latest
-    environment: development
+    environment: Development
     steps:
       - uses: actions/checkout@v6
 

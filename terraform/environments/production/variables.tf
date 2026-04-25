@@ -13,3 +13,7 @@ variable "region" {
 variable "github_repo" {
   type = string
 }
+
+variable "github_environment" {
+  type = string
+}
