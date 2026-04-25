@@ -29,3 +29,19 @@ resource "aws_route53_record" "apex_aaaa" {
 
   allow_overwrite = true
 }
+
+resource "aws_route53_record" "apex_txt" {
+  provider = aws.shared
+
+  zone_id = data.aws_route53_zone.this.zone_id
+  name    = var.domain_name
+  type    = "TXT"
+  ttl     = 300
+
+  records = [
+    "v=spf1 include:_spf.google.com ~all",
+    "google-site-verification=${var.google_site_verification}",
+  ]
+
+  allow_overwrite = true
+}
