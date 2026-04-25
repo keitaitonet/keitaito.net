@@ -30,8 +30,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <Font cssVariable="--font-noto-sans-jp" preload />
-    <Font cssVariable="--font-noto-sans-mono" preload />
+    <Font cssVariable="--font-noto-sans-jp" />
+    <Font cssVariable="--font-noto-sans-mono" />
     <ClientRouter />
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -39,7 +39,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#00877a" />
+    <meta name="theme-color" content="#007268" />
 
     {noindex && <meta name="robots" content="noindex, follow" />}
     {!isNotFound && <link rel="canonical" href={canonicalURL} />}
