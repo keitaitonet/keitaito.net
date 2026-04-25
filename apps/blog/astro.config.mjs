@@ -4,9 +4,11 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://keitaito.net",
+  site: process.env.SITE_URL ?? "http://localhost:4321",
   trailingSlash: "always",
   prefetch: {
     prefetchAll: true,
@@ -19,6 +21,7 @@ export default defineConfig({
     sitemap({
       filter: (page) => !page.endsWith("/404/"),
     }),
+    react(),
   ],
   vite: {
     plugins: [tailwindcss()],
@@ -28,13 +31,21 @@ export default defineConfig({
       provider: fontProviders.google(),
       name: "Noto Sans JP",
       cssVariable: "--font-noto-sans-jp",
-      fallbacks: ["sans-serif"],
+      weights: ["300 700"],
+      styles: ["normal"],
+      subsets: ["japanese"],
+      display: "swap",
+      fallbacks: ["system-ui", "sans-serif"],
     },
     {
       provider: fontProviders.google(),
       name: "Noto Sans Mono",
       cssVariable: "--font-noto-sans-mono",
-      fallbacks: ["monospace"],
+      weights: [400],
+      styles: ["normal"],
+      subsets: ["latin"],
+      display: "swap",
+      fallbacks: ["ui-monospace", "monospace"],
     },
   ],
 });

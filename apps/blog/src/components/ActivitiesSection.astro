@@ -27,7 +27,7 @@ const { activities } = Astro.props;
             {format(activity.data.date, "MMM yyyy")}
           </time>
           <div>
-            <h3 class="leading-snug font-medium">{activity.data.title}</h3>
+            <h3 class="leading-snug">{activity.data.title}</h3>
             <p class="text-muted mt-1 line-clamp-2 text-sm leading-relaxed">
               {activity.data.description}
             </p>

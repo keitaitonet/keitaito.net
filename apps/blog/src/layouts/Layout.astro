@@ -4,7 +4,16 @@ import { ClientRouter } from "astro:transitions";
 import type { Thing, WithContext } from "schema-dts";
 import Header from "../components/Header.astro";
 import JsonLd from "../components/JsonLd.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import {
+  OG_IMAGE,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_TYPE,
+  OG_IMAGE_WIDTH,
+  SITE_DESCRIPTION,
+  SITE_LOCALE,
+  SITE_TITLE,
+  TWITTER_HANDLE,
+} from "../consts";
 import "../styles.css";
 
 interface Props {
@@ -12,17 +21,26 @@ interface Props {
   description?: string;
   noindex?: boolean;
   jsonLd?: WithContext<Thing>[];
+  ogType?: "website" | "article";
+  ogImage?: string | URL;
+  ogImageAlt?: string;
 }
 
 const {
-  title = SITE_TITLE,
+  title,
   description = SITE_DESCRIPTION,
   noindex = false,
   jsonLd = [],
+  ogType = "website",
+  ogImage = OG_IMAGE,
+  ogImageAlt = title ?? SITE_TITLE,
 } = Astro.props;
 
 const isNotFound = Astro.url.pathname === "/404/";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const pageTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
+const ogTitle = title ?? SITE_TITLE;
+const ogImageURL = new URL(ogImage, Astro.site).href;
 ---
 
 <!doctype html>
@@ -30,8 +48,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <Font cssVariable="--font-noto-sans-jp" preload />
-    <Font cssVariable="--font-noto-sans-mono" preload />
+    <Font cssVariable="--font-noto-sans-jp" />
+    <Font cssVariable="--font-noto-sans-mono" />
     <ClientRouter />
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -39,13 +57,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#00877a" />
+    <meta name="theme-color" content="#007268" />
 
     {noindex && <meta name="robots" content="noindex, follow" />}
     {!isNotFound && <link rel="canonical" href={canonicalURL} />}
 
-    <title>{title}</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:locale" content={SITE_LOCALE} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:type" content={OG_IMAGE_TYPE} />
+    <meta property="og:image:width" content={String(OG_IMAGE_WIDTH)} />
+    <meta property="og:image:height" content={String(OG_IMAGE_HEIGHT)} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={TWITTER_HANDLE} />
+    <meta name="twitter:creator" content={TWITTER_HANDLE} />
 
     {jsonLd.map((item) => <JsonLd data={item} />)}
   </head>

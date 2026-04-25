@@ -28,6 +28,8 @@ const { works } = Astro.props;
             <Image
               src={work.data.thumbnail}
               alt=""
+              widths={[400, 600, 800, 1000, 1200]}
+              sizes="(min-width: 1056px) 488px, (min-width: 768px) calc(50vw - 40px), calc(100vw - 32px)"
               transition:name={`work-thumb-${work.id}`}
               class="h-full w-full object-cover transition group-hover:opacity-90 group-focus-visible:opacity-90"
             />
@@ -42,7 +44,7 @@ const { works } = Astro.props;
           <div class="mt-4 space-y-2">
             <h3
               transition:name={`work-title-${work.id}`}
-              class="decoration-primary text-lg font-medium tracking-tight underline decoration-1 underline-offset-4 group-hover:decoration-2 group-focus-visible:decoration-2"
+              class="decoration-primary text-lg tracking-tight underline decoration-1 underline-offset-4 group-hover:decoration-2 group-focus-visible:decoration-2"
             >
               {work.data.title}
             </h3>

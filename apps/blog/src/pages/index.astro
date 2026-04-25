@@ -8,7 +8,8 @@ import WorksSection from "../components/WorksSection.astro";
 import ActivitiesSection from "../components/ActivitiesSection.astro";
 import SkillsSection from "../components/SkillsSection.astro";
 import ArticlesSection from "../components/ArticlesSection.astro";
-import profileImage from "../assets/icons/65676193.jpeg";
+import profileImage from "../assets/profile.jpg";
+import { SITE_SECTIONS } from "../consts";
 
 const [activitiesRaw, articlesRaw, skillsRaw, works] = await Promise.all([
   getCollection("activities"),
@@ -24,13 +25,6 @@ const articles = articlesRaw.sort(
   (a, b) => b.data.published_at.valueOf() - a.data.published_at.valueOf(),
 );
 const skills = skillsRaw.sort((a, b) => a.data.name.localeCompare(b.data.name));
-
-const sectionLinks = [
-  { href: "#works", label: "Works" },
-  { href: "#activities", label: "Activities" },
-  { href: "#skills", label: "Skills" },
-  { href: "#articles", label: "Articles" },
-];
 
 const optimizedProfile = await getImage({ src: profileImage, width: 512 });
 const profileImageUrl = new URL(optimizedProfile.src, Astro.site).href;
@@ -85,7 +79,7 @@ const worksItemList: WithContext<ItemList> = {
         class="mx-auto grid max-w-5xl grid-cols-4 font-mono text-xs uppercase"
       >
         {
-          sectionLinks.map(({ href, label }) => (
+          SITE_SECTIONS.map(({ href, label }) => (
             <li>
               <a
                 href={href}
