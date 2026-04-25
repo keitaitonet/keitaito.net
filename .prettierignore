@@ -1,2 +1,5 @@
 pnpm-lock.yaml
 pnpm-workspace.yaml
+
+# Inline gtag stub uses `arguments`, which prettier-plugin-astro fails to parse.
+apps/blog/src/components/GoogleAnalytics.astro
