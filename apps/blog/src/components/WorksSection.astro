@@ -28,6 +28,8 @@ const { works } = Astro.props;
             <Image
               src={work.data.thumbnail}
               alt=""
+              widths={[400, 600, 800, 1000, 1200]}
+              sizes="(min-width: 1056px) 488px, (min-width: 768px) calc(50vw - 40px), calc(100vw - 32px)"
               transition:name={`work-thumb-${work.id}`}
               class="h-full w-full object-cover transition group-hover:opacity-90 group-focus-visible:opacity-90"
             />
