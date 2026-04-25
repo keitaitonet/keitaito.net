@@ -1,12 +1,10 @@
 import type { APIRoute } from "astro";
-import { srcDir } from "astro:config/server";
 import { renderOgTemplate } from "../lib/og-template";
 import { loadImageAsDataUrl, renderOgPng } from "../lib/og-render";
-import { SITE_DESCRIPTION } from "../consts";
+import { SITE_DESCRIPTION, SITE_SECTIONS } from "../consts";
+import profileImage from "../assets/profile.jpg";
 
-const profileImagePromise = loadImageAsDataUrl(
-  new URL("./assets/profile.jpg", srcDir),
-);
+const profileImagePromise = loadImageAsDataUrl(profileImage);
 
 export const GET: APIRoute = async () =>
   renderOgPng(
@@ -14,7 +12,7 @@ export const GET: APIRoute = async () =>
       eyebrow: "Portfolio",
       title: "伊藤 啓太",
       description: SITE_DESCRIPTION,
-      keywords: ["Works", "Activities", "Skills", "Articles"],
+      keywords: SITE_SECTIONS.map((s) => s.label),
       imageSrc: await profileImagePromise,
     }),
   );

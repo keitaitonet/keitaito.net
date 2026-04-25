@@ -8,7 +8,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://keitaito.net",
+  site: process.env.SITE_URL ?? "http://localhost:4321",
   trailingSlash: "always",
   prefetch: {
     prefetchAll: true,
