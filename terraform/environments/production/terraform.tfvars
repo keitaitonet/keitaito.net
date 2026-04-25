@@ -6,3 +6,5 @@ github_environment  = "Production"
 domain_name         = "keitaito.net"
 dns_zone_id         = "Z04741573BLIJZ9ATP45N"
 shared_dns_role_arn = "arn:aws:iam::116584140838:role/blog-prod-route53-writer"
+
+google_site_verification = "B9IZkEkZVHp4ngYNJDOpcYX_y4qrv2J3ez1SzWKSuD0"

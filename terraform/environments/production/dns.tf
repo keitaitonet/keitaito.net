@@ -40,7 +40,7 @@ resource "aws_route53_record" "apex_txt" {
 
   records = [
     "v=spf1 include:_spf.google.com ~all",
-    "google-site-verification=B9IZkEkZVHp4ngYNJDOpcYX_y4qrv2J3ez1SzWKSuD0",
+    "google-site-verification=${var.google_site_verification}",
   ]
 
   allow_overwrite = true

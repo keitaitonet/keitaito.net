@@ -29,3 +29,7 @@ variable "dns_zone_id" {
 variable "shared_dns_role_arn" {
   type = string
 }
+
+variable "google_site_verification" {
+  type = string
+}
