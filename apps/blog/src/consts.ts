@@ -10,7 +10,7 @@ export const SITE_SECTIONS = [
   { href: "#articles", label: "Articles" },
 ];
 
-export const TWITTER_HANDLE = "@ke1ta1to";
+export const TWITTER_HANDLE = "@keitaitonet";
 
 export const OG_IMAGE = "/og.png";
 export const OG_IMAGE_TYPE = "image/png";

@@ -1,7 +1,7 @@
 project             = "blog"
 environment         = "production"
 region              = "ap-northeast-1"
-github_repo         = "ke1ta1to/keitaito.net"
+github_repo         = "keitaitonet/keitaito.net"
 github_environment  = "Production"
 domain_name         = "keitaito.net"
 dns_zone_id         = "Z04741573BLIJZ9ATP45N"
